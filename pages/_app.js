@@ -1,7 +1,9 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
+import { useState } from "react";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} />
+    const [month, setMonth] = useState("");
+    return <Component setMonth={setMonth} month={month} {...pageProps} />;
 }
 
-export default MyApp
+export default MyApp;
