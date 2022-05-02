@@ -10,6 +10,7 @@ import {
 import { db } from "../../../firebase/firebase";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { setSpendInDatabase } from "../../../helpers/setSpend";
 
 export default function DisplayExpense() {
     const router = useRouter();
@@ -62,37 +63,23 @@ function ExpenseAdder({ setPastSpend, year, spend }) {
         const date = serverTimestamp();
         const uid = uuidv4();
 
-        setSpendInDatabase(input, cost, date, uid);
-
-        setInput("");
-        setCost("");
-    };
-
-    const setSpendInDatabase = async (description, cost, date, uid) => {
-        try {
-            const collectionRef = `username/jon/${year}/${spend}/spend`;
-            const docRef = await addDoc(collection(db, collectionRef), {
-                description,
-                spend: cost,
-                date,
-                uid,
-            });
-            console.log("Document written with ID: ", docRef.id);
+        setSpendInDatabase(input, cost, date, uid, year, spend).then(() => {
             setPastSpend((prevValue) => {
                 const parsedDate = new Date().getTime() / 1000;
                 return [
                     ...prevValue,
                     {
-                        description,
+                        description: input,
                         spend: cost,
                         date: { seconds: parsedDate },
                         uid,
                     },
                 ];
             });
-        } catch (e) {
-            console.error("Error adding document: ", e);
-        }
+        });
+
+        setInput("");
+        setCost("");
     };
 
     return (
