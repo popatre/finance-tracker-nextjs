@@ -28,7 +28,7 @@ export default function DisplayExpense() {
         const result = querySnapshot.docs.map((doc) => {
             return doc.data();
         });
-        console.log(result);
+        // console.log(result);
         setPastSpend(result);
     };
 
