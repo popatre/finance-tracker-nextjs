@@ -10,7 +10,7 @@ export default function Home({ setMonth, month }) {
     const [spends, setSpends] = useState([
         { cat: "food", total: 100 },
         { cat: "utils", total: 10 },
-        { cat: "direct debits", total: 200 },
+        { cat: "direct-debits", total: 200 },
     ]);
 
     return (
