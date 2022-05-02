@@ -110,10 +110,15 @@
 
 .row {
     display: flex;
+    width: 60%;
+    align-items: center;
+    justify-content: center;
+    border: #0070f3 solid 2px;
 }
 
 .col {
-    width: 100%;
+    width: 30%;
+    justify-content: center;
 }
 
 @media (max-width: 600px) {
