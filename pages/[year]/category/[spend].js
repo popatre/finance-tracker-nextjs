@@ -111,7 +111,9 @@ function SingleExpenseDisplay({ pastSpend }) {
         return (
             <div key={item.uid} className={styles.row}>
                 <>
-                    {/* <p className={styles.col}>Date:{item.date}</p> */}
+                    <p className={styles.col}>
+                        {new Date(item.date.seconds * 1000).toDateString()}
+                    </p>
                     <h3 className={styles.col}>{item.description}</h3>
                     <p className={styles.col}>Cost:£{item.spend}</p>
                 </>

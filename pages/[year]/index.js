@@ -22,6 +22,8 @@ export default function Home({ setMonth, month }) {
 
     useEffect(() => {
         getCategories().then((topics) => {
+            // if (topics.length === 0) topics = ["direct-debits", "food", "misc"];
+
             topics.forEach((topic) => {
                 findTotal(topic, year).then((res) => {
                     setTopicTotals((prevState) => {
@@ -39,7 +41,7 @@ export default function Home({ setMonth, month }) {
         const result = querySnapshot.docs.map((doc) => {
             return doc.id;
         });
-        console.log(result);
+        if (result.length === 0) result = ["direct-debits", "food", "misc"];
         setSpends(result);
         return result;
     };
@@ -73,6 +75,7 @@ function TopicDisplay({ spends, topicTotal }) {
     };
 
     return spends.map((item) => {
+        console.log(spends);
         return (
             <div key={item} className={styles.row}>
                 <h2 className={styles.col}>{item}</h2>
