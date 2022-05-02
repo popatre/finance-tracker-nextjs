@@ -4,8 +4,11 @@ import styles from "../../../styles/Home.module.css";
 import {
     collection,
     getDocs,
-    addDoc,
     serverTimestamp,
+    doc,
+    deleteDoc,
+    query,
+    where,
 } from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
 import { useState, useEffect } from "react";
@@ -49,7 +52,11 @@ export default function DisplayExpense() {
                 year={year}
                 spend={spend}
             />
-            <SingleExpenseDisplay pastSpend={pastSpend} />
+            <SingleExpenseDisplay
+                pastSpend={pastSpend}
+                year={year}
+                spend={spend}
+            />
         </main>
     );
 }
@@ -102,8 +109,19 @@ function ExpenseAdder({ setPastSpend, year, spend }) {
     );
 }
 
-function SingleExpenseDisplay({ pastSpend }) {
-    console.log(pastSpend);
+function SingleExpenseDisplay({ pastSpend, year, spend }) {
+    const handleDelete = async (document) => {
+        const docRef = `username/jon/${year}/${spend}/spend`;
+        const collectionRef = collection(db, docRef);
+
+        const dbQuery = query(collectionRef, where("uid", "==", document.uid));
+        const querySnapshot = await getDocs(dbQuery);
+
+        querySnapshot.forEach((document) => {
+            deleteDoc(doc(db, docRef, document.id));
+            //add rendering on page
+        });
+    };
 
     return pastSpend.map((item) => {
         return (
@@ -114,6 +132,7 @@ function SingleExpenseDisplay({ pastSpend }) {
                     </p>
                     <h3 className={styles.col}>{item.description}</h3>
                     <p className={styles.col}>Cost:£{item.spend}</p>
+                    <button onClick={() => handleDelete(item)}>Delete</button>
                 </>
             </div>
         );
