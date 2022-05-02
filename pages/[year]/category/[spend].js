@@ -79,7 +79,16 @@ function ExpenseAdder({ setPastSpend, year, spend }) {
             });
             console.log("Document written with ID: ", docRef.id);
             setPastSpend((prevValue) => {
-                return [...prevValue, { description, spend: cost, date }];
+                const parsedDate = new Date().getTime() / 1000;
+                return [
+                    ...prevValue,
+                    {
+                        description,
+                        spend: cost,
+                        date: { seconds: parsedDate },
+                        uid,
+                    },
+                ];
             });
         } catch (e) {
             console.error("Error adding document: ", e);
@@ -107,6 +116,8 @@ function ExpenseAdder({ setPastSpend, year, spend }) {
 }
 
 function SingleExpenseDisplay({ pastSpend }) {
+    console.log(pastSpend);
+
     return pastSpend.map((item) => {
         return (
             <div key={item.uid} className={styles.row}>
