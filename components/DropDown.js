@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 
 export default function DropDown({ setMonth, month }) {
     const router = useRouter();
+    const { year } = router.query;
 
     const handleChange = (e) => {
         const { value } = e.target;
@@ -12,7 +13,7 @@ export default function DropDown({ setMonth, month }) {
         <form>
             <label htmlFor="months">Choose a month:</label>
 
-            <select onChange={handleChange} value={month} id="months">
+            <select onChange={handleChange} value={year} id="months">
                 <option value="january">January</option>
                 <option value="february">February</option>
                 <option value="march">March</option>

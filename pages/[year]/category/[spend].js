@@ -14,6 +14,7 @@ import { db } from "../../../firebase/firebase";
 import { useState, useEffect } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { setSpendInDatabase } from "../../../helpers/setSpend";
+import _ from "lodash";
 
 export default function DisplayExpense() {
     const router = useRouter();
@@ -44,8 +45,8 @@ export default function DisplayExpense() {
     };
 
     return (
-        <main className={styles.main}>
-            <h1>{spend}</h1>
+        <main className={styles.container}>
+            <h1>{_.capitalize(spend)}</h1>
             <TotalBar total={totalSpend()} />
             <ExpenseAdder
                 setPastSpend={setPastSpend}
@@ -119,22 +120,33 @@ function SingleExpenseDisplay({ pastSpend, year, spend }) {
 
         querySnapshot.forEach((document) => {
             deleteDoc(doc(db, docRef, document.id));
-            //add rendering on page
+            /******* add rendering on page **********/
         });
     };
 
-    return pastSpend.map((item) => {
-        return (
-            <div key={item.uid} className={styles.row}>
-                <>
-                    <p className={styles.col}>
-                        {new Date(item.date.seconds * 1000).toDateString()}
-                    </p>
-                    <h3 className={styles.col}>{item.description}</h3>
-                    <p className={styles.col}>Cost:£{item.spend}</p>
-                    <button onClick={() => handleDelete(item)}>Delete</button>
-                </>
-            </div>
-        );
-    });
+    return (
+        <div className={styles.container}>
+            {pastSpend.map((item) => {
+                return (
+                    <div
+                        key={item.uid}
+                        className={`${styles.row} ${styles.card}`}
+                    >
+                        <>
+                            <p className={styles.col}>
+                                {new Date(
+                                    item.date.seconds * 1000
+                                ).toDateString()}
+                            </p>
+                            <h3 className={styles.col}>{item.description}</h3>
+                            <p className={styles.col}>Cost:£{item.spend}</p>
+                            <button onClick={() => handleDelete(item)}>
+                                Delete
+                            </button>
+                        </>
+                    </div>
+                );
+            })}
+        </div>
+    );
 }

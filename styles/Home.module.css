@@ -1,15 +1,19 @@
 .container {
-    padding: 0 2rem;
+    padding: 4rem 0;
+    width: 90%;
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
 }
 
 .main {
     min-height: 100vh;
-    padding: 4rem 0;
-    flex: 1;
+
+    /* flex: 1;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; */
     /* justify-content: center; */
-    align-items: center;
+    /* align-items: center; */
 }
 
 .footer {
@@ -74,7 +78,7 @@
 }
 
 .card {
-    margin: 1rem;
+    margin: 1rem 0;
     padding: 1.5rem;
     text-align: left;
     color: inherit;
@@ -82,7 +86,6 @@
     border: 1px solid #eaeaea;
     border-radius: 10px;
     transition: color 0.15s ease, border-color 0.15s ease;
-    max-width: 300px;
 }
 
 .card:hover,
@@ -90,6 +93,7 @@
 .card:active {
     color: #0070f3;
     border-color: #0070f3;
+    background-color: #bfd8f4;
 }
 
 .card h2 {
@@ -110,15 +114,21 @@
 
 .row {
     display: flex;
-    width: 60%;
+    width: 100%;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     border: #0070f3 solid 2px;
 }
 
 .col {
     width: 30%;
     justify-content: center;
+    text-align: center;
+}
+
+.button {
+    width: 20%;
+    padding: 0.5em;
 }
 
 @media (max-width: 600px) {

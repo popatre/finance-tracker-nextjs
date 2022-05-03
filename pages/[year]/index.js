@@ -47,7 +47,7 @@ export default function Home({ setMonth, month }) {
     };
 
     return (
-        <div className={styles.main}>
+        <div className={styles.container}>
             <h1>Expenses Tracker</h1>
             <DropDown month={month} setMonth={setMonth} />
             <DateCheck>
@@ -75,16 +75,15 @@ function TopicDisplay({ spends, topicTotal }) {
     };
 
     return spends.map((item) => {
-        console.log(spends);
         return (
-            <div key={item} className={styles.row}>
+            <div key={item} className={`${styles.row} ${styles.card}`}>
                 <h2 className={styles.col}>{item}</h2>
                 <p className={styles.col}>
                     Spend this month: £{topicTotal[item]}
                 </p>
                 <button
                     onClick={() => handleNavigation(item)}
-                    className={styles.col}
+                    className={`${styles.col} ${styles.button}`}
                 >
                     Add +
                 </button>
