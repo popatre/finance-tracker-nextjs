@@ -90,13 +90,10 @@
     box-shadow: 5px 10px 10px #2c2b2b;
 }
 
-.card:hover,
 .card:focus,
 .card:active {
     color: #0070f3;
     border-color: #0070f3;
-    background-color: #bfd8f4;
-    cursor: pointer;
 }
 
 .card h2 {
@@ -137,6 +134,31 @@
 p.errorMsg {
     font-size: 0.8rem;
     color: red;
+}
+
+.delete-btn {
+    background-color: rgb(238, 85, 85);
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 20px;
+}
+
+.delete-btn:hover {
+    cursor: pointer;
+    background-color: rgb(235, 25, 25);
+}
+
+.spendBtn {
+    cursor: pointer;
+    background-color: var(--yellow-color);
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 5px 10px 10px #2c2b2b;
+}
+
+.spendBtn:hover {
+    box-shadow: 0px 1px 10px #b8b7b7;
 }
 
 @media (max-width: 600px) {

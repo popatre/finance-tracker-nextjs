@@ -75,7 +75,7 @@ function TopicDisplay({ spends, topicTotal }) {
                 <div key={item} className={`${styles.row} ${styles.card}`}>
                     <h2 className={styles.col}>{item}</h2>
                     <p className={styles.col}>
-                        Spend this month: £{topicTotal[item]}
+                        Spent this month: £{topicTotal[item]}
                     </p>
                     {/* <button
                     onClick={() => handleNavigation(item)}

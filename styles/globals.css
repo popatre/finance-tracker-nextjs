@@ -1,16 +1,60 @@
+:root {
+    --yellow-color: rgba(188, 150, 11, 0.939);
+}
+
 html,
 body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    padding: 0;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+        Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+    /* background-image: url("https://www.transparenttextures.com/patterns/arabesque.png");
+    background-color: rgb(237, 237, 221); */
+    background-color: #5f6166;
+    background-image: url("https://www.transparenttextures.com/patterns/food.png");
 }
 
 a {
-  color: inherit;
-  text-decoration: none;
+    color: inherit;
+    text-decoration: none;
 }
 
 * {
-  box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+h1 {
+    color: var(--yellow-color);
+    text-shadow: 1px 1px 2px #f7f4f4;
+    font-size: 2.6rem;
+}
+
+h2 {
+    color: white;
+    text-shadow: 4px 2px 6px #1e1e1e;
+    font-size: 1.8rem;
+}
+
+.dropdown__form label {
+    color: white;
+    text-shadow: 4px 2px 6px #1e1e1e;
+    font-size: 1.25rem;
+    margin-right: 1em;
+}
+
+select {
+    padding: 0.5em;
+    border-radius: 10px;
+}
+
+.expense__form label {
+    color: white;
+    text-shadow: 4px 2px 6px #1e1e1e;
+    font-size: 1.25rem;
+    margin-right: 1em;
+}
+
+input {
+    padding: 0.3em;
+    border-radius: 10px;
 }

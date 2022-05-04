@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import TotalBar from "../../../components/TotalBar";
-import styles from "../../../styles/Home.module.css";
+import styles from "../../../styles/Spend.module.css";
 import {
     collection,
     getDocs,
@@ -59,6 +59,7 @@ export default function DisplayExpense() {
                 pastSpend={pastSpend}
                 year={year}
                 spend={spend}
+                setPastSpend={setPastSpend}
             />
         </main>
     );
@@ -77,13 +78,13 @@ function ExpenseAdder({ setPastSpend, year, spend }) {
             setPastSpend((prevValue) => {
                 const parsedDate = new Date().getTime() / 1000;
                 return [
-                    ...prevValue,
                     {
                         description: input,
                         spend: cost,
                         date: { seconds: parsedDate },
                         uid,
                     },
+                    ...prevValue,
                 ];
             });
         });
@@ -93,7 +94,7 @@ function ExpenseAdder({ setPastSpend, year, spend }) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="expense__form" onSubmit={handleSubmit}>
             <label htmlFor="expense">Expense:</label>
             <input
                 name="expense"
@@ -107,22 +108,38 @@ function ExpenseAdder({ setPastSpend, year, spend }) {
                 type="number"
                 onChange={(e) => setCost(e.target.value)}
             ></input>
-            <button>Add Expense</button>
+            <button className={styles.spendBtn}>Add Expense</button>
         </form>
     );
 }
 
-function SingleExpenseDisplay({ pastSpend, year, spend }) {
-    const handleDelete = async (document) => {
+function SingleExpenseDisplay({ pastSpend, year, spend, setPastSpend }) {
+    const [errorMsg, setErrorMsg] = useState("");
+
+    const handleDelete = async (documentToDelete) => {
         const docRef = `username/jon/${year}/${spend}/spend`;
         const collectionRef = collection(db, docRef);
 
-        const dbQuery = query(collectionRef, where("uid", "==", document.uid));
+        const dbQuery = query(
+            collectionRef,
+            where("uid", "==", documentToDelete.uid)
+        );
         const querySnapshot = await getDocs(dbQuery);
 
-        querySnapshot.forEach((document) => {
-            deleteDoc(doc(db, docRef, document.id));
-            /******* add rendering on page **********/
+        querySnapshot.forEach(async (document) => {
+            try {
+                await deleteDoc(doc(db, docRef, document.id));
+                setPastSpend((prevSpends) => {
+                    return prevSpends.filter((item) => {
+                        return item.uid !== documentToDelete.uid;
+                    });
+                });
+            } catch (error) {
+                console.log(error);
+                setErrorMsg(
+                    "Something went wrong. Please refresh and try again"
+                );
+            }
         });
     };
 
@@ -144,9 +161,16 @@ function SingleExpenseDisplay({ pastSpend, year, spend }) {
                                 {_.capitalize(item.description)}
                             </h3>
                             <p className={styles.col}>Cost:£{item.spend}</p>
-                            <button onClick={() => handleDelete(item)}>
-                                Delete
-                            </button>
+                            {errorMsg ? (
+                                <p className={styles.errorMsg}>{errorMsg}</p>
+                            ) : (
+                                <button
+                                    className={styles["delete-btn"]}
+                                    onClick={() => handleDelete(item)}
+                                >
+                                    Delete
+                                </button>
+                            )}
                         </>
                     </div>
                 );

@@ -10,7 +10,7 @@ export default function DropDown({ setMonth, month }) {
         router.push(`${value}`);
     };
     return (
-        <form>
+        <form className="dropdown__form">
             <label htmlFor="months">Choose a month:</label>
 
             <select onChange={handleChange} value={year} id="months">
