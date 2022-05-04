@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import styles from "../../styles/Home.module.css";
 import TotalBar from "../../components/TotalBar";
+import Link from "next/link";
 import DateCheck from "../../components/MonthCheck";
 import DropDown from "../../components/DropDown";
 import { collection, getDocs } from "firebase/firestore";
@@ -68,24 +69,22 @@ function TopicDisplay({ spends, topicTotal }) {
     const router = useRouter();
     const { year } = router.query;
 
-    const handleNavigation = (cat) => {
-        router.push(`${year}/category/${cat}`);
-    };
-
     return spends.map((item) => {
         return (
-            <div key={item} className={`${styles.row} ${styles.card}`}>
-                <h2 className={styles.col}>{item}</h2>
-                <p className={styles.col}>
-                    Spend this month: £{topicTotal[item]}
-                </p>
-                <button
+            <Link href={`${year}/category/${item}`}>
+                <div key={item} className={`${styles.row} ${styles.card}`}>
+                    <h2 className={styles.col}>{item}</h2>
+                    <p className={styles.col}>
+                        Spend this month: £{topicTotal[item]}
+                    </p>
+                    {/* <button
                     onClick={() => handleNavigation(item)}
                     className={`${styles.col} ${styles.button}`}
                 >
                     Add +
-                </button>
-            </div>
+                </button> */}
+                </div>
+            </Link>
         );
     });
 }
