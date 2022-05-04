@@ -22,8 +22,6 @@ export default function Home({ setMonth, month }) {
 
     useEffect(() => {
         getCategories().then((topics) => {
-            // if (topics.length === 0) topics = ["direct-debits", "food", "misc"];
-
             topics.forEach((topic) => {
                 findTotal(topic, year).then((res) => {
                     setTopicTotals((prevState) => {

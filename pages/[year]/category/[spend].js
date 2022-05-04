@@ -9,6 +9,7 @@ import {
     deleteDoc,
     query,
     where,
+    orderBy,
 } from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
 import { useState, useEffect } from "react";
@@ -26,9 +27,10 @@ export default function DisplayExpense() {
     }, [spend]);
 
     const getSpend = async () => {
-        const collectionRef = `username/jon/${year}/${spend}/spend`;
-
-        const querySnapshot = await getDocs(collection(db, collectionRef));
+        const collectionPath = `username/jon/${year}/${spend}/spend`;
+        const collectionRef = collection(db, collectionPath);
+        const dbQuery = query(collectionRef, orderBy("date", "desc"));
+        const querySnapshot = await getDocs(dbQuery);
 
         const result = querySnapshot.docs.map((doc) => {
             return doc.data();
@@ -138,7 +140,9 @@ function SingleExpenseDisplay({ pastSpend, year, spend }) {
                                     item.date.seconds * 1000
                                 ).toDateString()}
                             </p>
-                            <h3 className={styles.col}>{item.description}</h3>
+                            <h3 className={styles.col}>
+                                {_.capitalize(item.description)}
+                            </h3>
                             <p className={styles.col}>Cost:£{item.spend}</p>
                             <button onClick={() => handleDelete(item)}>
                                 Delete

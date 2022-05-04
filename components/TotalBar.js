@@ -3,6 +3,6 @@ export default function TotalBar({ total }) {
     return typeof total !== "object" ? (
         <h2>Total spent:£{total}</h2>
     ) : (
-        <h2>Total spent:£{totalValues}</h2>
+        <h2>Total spent:£{totalValues.toFixed(2)}</h2>
     );
 }
