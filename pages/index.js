@@ -12,7 +12,7 @@ export default function Home({ setMonth, month }) {
     ]);
 
     return (
-        <div className={styles.main}>
+        <div className={styles.container}>
             <h1>Expenses Tracker</h1>
             <DropDown setMonth={setMonth} month={month} />
         </div>

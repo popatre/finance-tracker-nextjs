@@ -51,7 +51,13 @@ select {
     color: white;
     text-shadow: 4px 2px 6px #1e1e1e;
     font-size: 1.25rem;
-    margin-right: 1em;
+
+    /* margin-right: 1em; */
+}
+
+.expense__form {
+    width: 50%;
+    margin-inline: auto;
 }
 
 input {

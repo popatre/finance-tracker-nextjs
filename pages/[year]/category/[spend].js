@@ -17,6 +17,8 @@ import { v4 as uuidv4 } from "uuid";
 import { setSpendInDatabase } from "../../../helpers/setSpend";
 import _ from "lodash";
 
+/*https://www.npmjs.com/package/react-circular-progressbar */
+
 export default function DisplayExpense() {
     const router = useRouter();
     const { spend, year } = router.query;
@@ -95,19 +97,33 @@ function ExpenseAdder({ setPastSpend, year, spend }) {
 
     return (
         <form className="expense__form" onSubmit={handleSubmit}>
-            <label htmlFor="expense">Expense:</label>
-            <input
-                name="expense"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-            ></input>
-            <label htmlFor="cost">Cost:</label>
-            <input
-                name="cost"
-                value={cost}
-                type="number"
-                onChange={(e) => setCost(e.target.value)}
-            ></input>
+            <div className={styles.rowForm}>
+                <div className={styles.colForm}>
+                    <label htmlFor="expense">Expense:</label>
+                </div>
+                <div className={styles.colForm}>
+                    <input
+                        required
+                        name="expense"
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                    ></input>
+                </div>
+            </div>
+            <div className={styles.rowForm}>
+                <div className={styles.colForm}>
+                    <label htmlFor="cost">Cost:</label>
+                </div>
+                <div className={styles.colForm}>
+                    <input
+                        required
+                        name="cost"
+                        value={cost}
+                        type="number"
+                        onChange={(e) => setCost(e.target.value)}
+                    ></input>
+                </div>
+            </div>
             <button className={styles.spendBtn}>Add Expense</button>
         </form>
     );
