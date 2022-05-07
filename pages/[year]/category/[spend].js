@@ -52,6 +52,7 @@ export default function DisplayExpense() {
         <main className={styles.container}>
             <h1>{_.capitalize(spend)}</h1>
             <TotalBar total={totalSpend()} />
+
             <ExpenseAdder
                 setPastSpend={setPastSpend}
                 year={year}
