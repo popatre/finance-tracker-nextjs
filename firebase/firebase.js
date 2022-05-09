@@ -1,13 +1,14 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-    apiKey: process.env.FIREBASE_APIKEY,
+    apiKey: process.env.NEXT_PUBLIC_FIREBASE_APIKEY,
     authDomain: "money-tracker-a57b9.firebaseapp.com",
     projectId: "money-tracker-a57b9",
     storageBucket: "money-tracker-a57b9.appspot.com",
@@ -19,5 +20,8 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+const auth = getAuth();
 
-export { app, db };
+const provider = new GoogleAuthProvider();
+
+export { app, db, auth, provider };
