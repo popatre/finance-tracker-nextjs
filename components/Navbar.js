@@ -1,5 +1,8 @@
 import { auth } from "../firebase/firebase";
 import { signOut } from "firebase/auth";
+import { FiLogOut } from "react-icons/fi";
+import { IconContext } from "react-icons";
+import styles from "../styles/Home.module.css";
 
 export default function NavBar() {
     const handleSignOut = () => {
@@ -14,7 +17,11 @@ export default function NavBar() {
 
     return (
         <div>
-            <button onClick={handleSignOut}>Sign Out</button>
+            <IconContext.Provider value={{ size: "1em" }}>
+                <button className={styles.btnLogOut} onClick={handleSignOut}>
+                    <FiLogOut /> Log out{" "}
+                </button>
+            </IconContext.Provider>
         </div>
     );
 }
