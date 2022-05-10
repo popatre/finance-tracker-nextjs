@@ -4,6 +4,8 @@ import styles from "../styles/Home.module.css";
 import DropDown from "../components/DropDown";
 import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
+import { FcGoogle } from "react-icons/fc";
+import { IconContext } from "react-icons";
 
 export default function Home({ setMonth, month }) {
     const user = useContext(UserContext);
@@ -23,8 +25,11 @@ export default function Home({ setMonth, month }) {
             <h1>Expenses Tracker</h1>
             {!user ? (
                 <div>
-                    <p>Sign in to start</p>
-                    <button onClick={handleSignIn}>Sign in</button>
+                    <button className={styles.btnSignIn} onClick={handleSignIn}>
+                        <IconContext.Provider value={{ size: "1.2em" }}>
+                            <FcGoogle /> Sign in with Google
+                        </IconContext.Provider>
+                    </button>
                 </div>
             ) : (
                 <DropDown setMonth={setMonth} month={month} />
