@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import styles from "../../styles/Home.module.css";
 import TotalBar from "../../components/TotalBar";
 import Link from "next/link";
-import DateCheck from "../../components/MonthCheck";
+import AuthCheck from "../../components/MonthCheck";
 import DropDown from "../../components/DropDown";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
@@ -49,10 +49,10 @@ export default function Home({ setMonth, month }) {
         <div className={styles.container}>
             <h1>Expenses Tracker</h1>
             <DropDown month={month} setMonth={setMonth} />
-            <DateCheck>
+            <AuthCheck>
                 <TotalBar total={topicTotal} />
                 <SpendTopicContainer spends={spends} topicTotal={topicTotal} />
-            </DateCheck>
+            </AuthCheck>
         </div>
     );
 }

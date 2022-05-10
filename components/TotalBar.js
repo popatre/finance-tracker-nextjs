@@ -3,7 +3,6 @@ import "react-circular-progressbar/dist/styles.css";
 import styles from "../styles/TotalBar.module.css";
 
 export default function TotalBar({ total }) {
-    console.log(total);
     const totalValues = Object.values(total).reduce((a, b) => +a + +b);
     const percentage = (totalValues / 1600) * 100;
     return typeof total !== "object" ? (
