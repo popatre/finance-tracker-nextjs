@@ -2,19 +2,24 @@ import Head from "next/head";
 
 import styles from "../styles/Home.module.css";
 import DropDown from "../components/DropDown";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { UserContext } from "../contexts/UserContext";
 
 export default function Home({ setMonth, month }) {
-    const [spends, setSpends] = useState([
-        { cat: "food", total: 100 },
-        { cat: "utils", total: 10 },
-        { cat: "direct-debits", total: 200 },
-    ]);
+    const user = useContext(UserContext);
+    console.log(user, "<---");
 
     return (
         <div className={styles.container}>
             <h1>Expenses Tracker</h1>
-            <DropDown setMonth={setMonth} month={month} />
+            {!user ? (
+                <div>
+                    <p>Sign in to start</p>
+                    <button>Sign in</button>
+                </div>
+            ) : (
+                <DropDown setMonth={setMonth} month={month} />
+            )}
         </div>
     );
 }

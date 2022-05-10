@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import styles from "../../styles/Home.module.css";
 import TotalBar from "../../components/TotalBar";
 import Link from "next/link";
-import AuthCheck from "../../components/MonthCheck";
+import AuthCheck from "../../components/AuthCheck";
 import DropDown from "../../components/DropDown";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
