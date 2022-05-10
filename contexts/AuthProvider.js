@@ -23,6 +23,6 @@ export default function UserContextProvider({ children }) {
             setUser(firebaseUser);
         });
     }, []);
-    console.count(user, "********");
+
     return <UserContext.Provider value={user}>{children}</UserContext.Provider>;
 }
