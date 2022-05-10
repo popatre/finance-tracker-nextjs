@@ -1,13 +1,22 @@
 import Head from "next/head";
-
+import { signInGoogle } from "../api/dbCalls";
 import styles from "../styles/Home.module.css";
 import DropDown from "../components/DropDown";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import { UserContext } from "../contexts/UserContext";
 
 export default function Home({ setMonth, month }) {
     const user = useContext(UserContext);
-    console.log(user, "<---");
+
+    const handleSignIn = async () => {
+        try {
+            const result = await signInGoogle();
+            console.log(result.email);
+        } catch (error) {
+            const errorMessage = error.message;
+            console.log(errorMessage);
+        }
+    };
 
     return (
         <div className={styles.container}>
@@ -15,7 +24,7 @@ export default function Home({ setMonth, month }) {
             {!user ? (
                 <div>
                     <p>Sign in to start</p>
-                    <button>Sign in</button>
+                    <button onClick={handleSignIn}>Sign in</button>
                 </div>
             ) : (
                 <DropDown setMonth={setMonth} month={month} />

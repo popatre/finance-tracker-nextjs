@@ -20,7 +20,7 @@ export default function UserContextProvider({ children }) {
 
     useEffect(() => {
         onAuthStateChanged(auth, (firebaseUser) => {
-            setUser(firebaseUser.email);
+            setUser(firebaseUser);
         });
     }, []);
     console.count(user, "********");

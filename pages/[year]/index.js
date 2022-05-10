@@ -48,8 +48,8 @@ export default function Home({ setMonth, month }) {
     return (
         <div className={styles.container}>
             <h1>Expenses Tracker</h1>
-            <DropDown month={month} setMonth={setMonth} />
             <AuthCheck>
+                <DropDown month={month} setMonth={setMonth} />
                 <TotalBar total={topicTotal} />
                 <SpendTopicContainer spends={spends} topicTotal={topicTotal} />
             </AuthCheck>

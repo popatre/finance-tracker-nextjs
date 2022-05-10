@@ -1,6 +1,6 @@
 import "../styles/globals.css";
 import { useState, useEffect } from "react";
-
+import NavBar from "../components/Navbar";
 import AuthContextProvider from "../contexts/AuthProvider";
 
 function MyApp({ Component, pageProps }) {
@@ -8,6 +8,7 @@ function MyApp({ Component, pageProps }) {
 
     return (
         <AuthContextProvider>
+            <NavBar />
             <Component setMonth={setMonth} month={month} {...pageProps} />;
         </AuthContextProvider>
     );
