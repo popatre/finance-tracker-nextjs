@@ -12,10 +12,11 @@ import {
     orderBy,
 } from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { setSpendInDatabase } from "../../../helpers/setSpend";
 import _ from "lodash";
+import { UserContext } from "../../../contexts/UserContext";
 
 /*https://www.npmjs.com/package/react-circular-progressbar */
 
@@ -23,13 +24,14 @@ export default function DisplayExpense() {
     const router = useRouter();
     const { spend, year } = router.query;
     const [pastSpend, setPastSpend] = useState([]);
+    const user = useContext(UserContext);
 
     useEffect(() => {
         getSpend();
-    }, [spend]);
+    }, [spend, user]);
 
     const getSpend = async () => {
-        const collectionPath = `username/jon/${year}/${spend}/spend`;
+        const collectionPath = `username/${user?.email}/${year}/${spend}/spend`;
         const collectionRef = collection(db, collectionPath);
         const dbQuery = query(collectionRef, orderBy("date", "desc"));
         const querySnapshot = await getDocs(dbQuery);
@@ -57,6 +59,7 @@ export default function DisplayExpense() {
                 setPastSpend={setPastSpend}
                 year={year}
                 spend={spend}
+                user={user}
             />
             <SingleExpenseDisplay
                 pastSpend={pastSpend}
@@ -68,7 +71,7 @@ export default function DisplayExpense() {
     );
 }
 
-function ExpenseAdder({ setPastSpend, year, spend }) {
+function ExpenseAdder({ setPastSpend, year, spend, user }) {
     const [input, setInput] = useState("");
     const [cost, setCost] = useState("");
 
@@ -77,7 +80,15 @@ function ExpenseAdder({ setPastSpend, year, spend }) {
         const date = serverTimestamp();
         const uid = uuidv4();
 
-        setSpendInDatabase(input, cost, date, uid, year, spend).then(() => {
+        setSpendInDatabase(
+            input,
+            cost,
+            date,
+            uid,
+            year,
+            spend,
+            user.email
+        ).then(() => {
             setPastSpend((prevValue) => {
                 const parsedDate = new Date().getTime() / 1000;
                 return [
@@ -131,10 +142,11 @@ function ExpenseAdder({ setPastSpend, year, spend }) {
 }
 
 function SingleExpenseDisplay({ pastSpend, year, spend, setPastSpend }) {
+    const user = useContext(UserContext);
     const [errorMsg, setErrorMsg] = useState("");
 
     const handleDelete = async (documentToDelete) => {
-        const docRef = `username/jon/${year}/${spend}/spend`;
+        const docRef = `username/${user.email}/${year}/${spend}/spend`;
         const collectionRef = collection(db, docRef);
 
         const dbQuery = query(

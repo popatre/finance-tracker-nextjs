@@ -13,7 +13,7 @@ export default function Home({ setMonth, month }) {
     const handleSignIn = async () => {
         try {
             const result = await signInGoogle();
-            console.log(result.email);
+            console.log(result);
         } catch (error) {
             const errorMessage = error.message;
             console.log(errorMessage);

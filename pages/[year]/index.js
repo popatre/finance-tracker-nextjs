@@ -7,8 +7,9 @@ import AuthCheck from "../../components/AuthCheck";
 import DropDown from "../../components/DropDown";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { findTotal } from "../../helpers/findTotal";
+import { UserContext } from "../../contexts/UserContext";
 
 export default function Home({ setMonth, month }) {
     const [spends, setSpends] = useState([]);
@@ -18,23 +19,26 @@ export default function Home({ setMonth, month }) {
         "direct-debits": 0,
     });
 
+    const user = useContext(UserContext);
+
     const router = useRouter();
     const { year } = router.query;
 
     useEffect(() => {
         getCategories().then((topics) => {
             topics.forEach((topic) => {
-                findTotal(topic, year).then((res) => {
+                findTotal(topic, year, user?.email).then((res) => {
                     setTopicTotals((prevState) => {
                         return { ...prevState, [topic]: res };
                     });
                 });
             });
         });
-    }, [year]);
+    }, [year, user]);
 
     const getCategories = async () => {
-        const collectionRef = `username/jon/${year}`;
+        const collectionRef = `username/${user?.email}/${year}`;
+        console.log(collectionRef, user);
         const querySnapshot = await getDocs(collection(db, collectionRef));
 
         const result = querySnapshot.docs.map((doc) => {
@@ -77,12 +81,6 @@ function TopicDisplay({ spends, topicTotal }) {
                     <p className={styles.col}>
                         Spent this month: £{topicTotal[item]}
                     </p>
-                    {/* <button
-                    onClick={() => handleNavigation(item)}
-                    className={`${styles.col} ${styles.button}`}
-                >
-                    Add +
-                </button> */}
                 </div>
             </Link>
         );
