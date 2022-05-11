@@ -32,7 +32,16 @@ export default function Home({ setMonth, month }) {
                     </button>
                 </div>
             ) : (
-                <DropDown setMonth={setMonth} month={month} />
+                <div>
+                    <DropDown setMonth={setMonth} month={month} />
+                    <p className={styles.welcomeMsg}>
+                        Hello {user.displayName}!
+                    </p>
+                    <p className={styles.welcomeMsg}>
+                        {" "}
+                        Choose a month to begin
+                    </p>
+                </div>
             )}
         </div>
     );
