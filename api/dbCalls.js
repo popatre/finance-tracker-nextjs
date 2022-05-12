@@ -39,6 +39,5 @@ export const getSpend = async (user, year, spend) => {
     const result = querySnapshot.docs.map((doc) => {
         return doc.data();
     });
-    // console.log(result);
-    // setPastSpend(result);
+    return result;
 };

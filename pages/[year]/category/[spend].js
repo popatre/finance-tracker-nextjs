@@ -17,6 +17,7 @@ import { v4 as uuidv4 } from "uuid";
 import { setSpendInDatabase } from "../../../helpers/setSpend";
 import _ from "lodash";
 import { UserContext } from "../../../contexts/UserContext";
+import { getSpend } from "../../../api/dbCalls";
 
 /*https://www.npmjs.com/package/react-circular-progressbar */
 
@@ -28,6 +29,7 @@ export default function DisplayExpense() {
 
     useEffect(() => {
         getSpend(user, year, spend).then((result) => {
+            console.log(result);
             setPastSpend(result);
         });
     }, [spend, user]);
