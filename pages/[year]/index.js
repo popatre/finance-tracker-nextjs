@@ -7,6 +7,7 @@ import AuthCheck from "../../components/AuthCheck";
 import DropDown from "../../components/DropDown";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
+import { getCategories } from "../../api/dbCalls";
 import { useState, useEffect, useContext } from "react";
 import { findTotal } from "../../helpers/findTotal";
 import { UserContext } from "../../contexts/UserContext";
@@ -25,7 +26,8 @@ export default function Home({ setMonth, month }) {
     const { year } = router.query;
 
     useEffect(() => {
-        getCategories().then((topics) => {
+        getCategories(user, year).then((topics) => {
+            setSpends(topics);
             topics.forEach((topic) => {
                 findTotal(topic, year, user?.email).then((res) => {
                     setTopicTotals((prevState) => {
@@ -35,19 +37,6 @@ export default function Home({ setMonth, month }) {
             });
         });
     }, [year, user]);
-
-    const getCategories = async () => {
-        const collectionRef = `username/${user?.email}/${year}`;
-        console.log(collectionRef, user);
-        const querySnapshot = await getDocs(collection(db, collectionRef));
-
-        const result = querySnapshot.docs.map((doc) => {
-            return doc.id;
-        });
-        if (result.length === 0) result = ["direct-debits", "food", "misc"];
-        setSpends(result);
-        return result;
-    };
 
     return (
         <div className={styles.container}>
