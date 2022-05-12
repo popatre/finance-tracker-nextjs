@@ -29,7 +29,6 @@ export default function DisplayExpense() {
 
     useEffect(() => {
         getSpend(user, year, spend).then((result) => {
-            console.log(result);
             setPastSpend(result);
         });
     }, [spend, user]);
