@@ -27,21 +27,10 @@ export default function DisplayExpense() {
     const user = useContext(UserContext);
 
     useEffect(() => {
-        getSpend();
-    }, [spend, user]);
-
-    const getSpend = async () => {
-        const collectionPath = `username/${user?.email}/${year}/${spend}/spend`;
-        const collectionRef = collection(db, collectionPath);
-        const dbQuery = query(collectionRef, orderBy("date", "desc"));
-        const querySnapshot = await getDocs(dbQuery);
-
-        const result = querySnapshot.docs.map((doc) => {
-            return doc.data();
+        getSpend(user, year, spend).then((result) => {
+            setPastSpend(result);
         });
-        // console.log(result);
-        setPastSpend(result);
-    };
+    }, [spend, user]);
 
     const totalSpend = () => {
         const total = pastSpend.reduce((acc, curr) => {

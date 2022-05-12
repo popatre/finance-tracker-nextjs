@@ -1,6 +1,15 @@
 import { auth, provider } from "../firebase/firebase";
 import { signInWithPopup, onAuthStateChanged } from "firebase/auth";
-import { collection, getDocs } from "firebase/firestore";
+import {
+    collection,
+    getDocs,
+    serverTimestamp,
+    doc,
+    deleteDoc,
+    query,
+    where,
+    orderBy,
+} from "firebase/firestore";
 import { db } from "../firebase/firebase";
 
 export const signInGoogle = async () => {
@@ -17,6 +26,19 @@ export const getCategories = async (user, year) => {
         return doc.id;
     });
     if (result.length === 0) result = ["direct-debits", "food", "misc"];
-    // setSpends(result);
+
     return result;
+};
+
+export const getSpend = async (user, year, spend) => {
+    const collectionPath = `username/${user?.email}/${year}/${spend}/spend`;
+    const collectionRef = collection(db, collectionPath);
+    const dbQuery = query(collectionRef, orderBy("date", "desc"));
+    const querySnapshot = await getDocs(dbQuery);
+
+    const result = querySnapshot.docs.map((doc) => {
+        return doc.data();
+    });
+    // console.log(result);
+    // setPastSpend(result);
 };

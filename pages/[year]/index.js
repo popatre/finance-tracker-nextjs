@@ -5,8 +5,6 @@ import TotalBar from "../../components/TotalBar";
 import Link from "next/link";
 import AuthCheck from "../../components/AuthCheck";
 import DropDown from "../../components/DropDown";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../../firebase/firebase";
 import { getCategories } from "../../api/dbCalls";
 import { useState, useEffect, useContext } from "react";
 import { findTotal } from "../../helpers/findTotal";
