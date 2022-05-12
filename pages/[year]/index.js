@@ -24,16 +24,18 @@ export default function Home({ setMonth, month }) {
     const { year } = router.query;
 
     useEffect(() => {
-        getCategories(user, year).then((topics) => {
-            setSpends(topics);
-            topics.forEach((topic) => {
-                findTotal(topic, year, user?.email).then((res) => {
-                    setTopicTotals((prevState) => {
-                        return { ...prevState, [topic]: res };
+        getCategories(user, year)
+            .then((topics) => {
+                setSpends(topics);
+                topics.forEach((topic) => {
+                    findTotal(topic, year, user?.email).then((res) => {
+                        setTopicTotals((prevState) => {
+                            return { ...prevState, [topic]: res };
+                        });
                     });
                 });
-            });
-        });
+            })
+            .catch((err) => console.log(err));
     }, [year, user]);
 
     return (

@@ -18,6 +18,7 @@ import { setSpendInDatabase } from "../../../helpers/setSpend";
 import _ from "lodash";
 import { UserContext } from "../../../contexts/UserContext";
 import { getSpend } from "../../../api/dbCalls";
+import toast, { Toaster } from "react-hot-toast";
 
 /*https://www.npmjs.com/package/react-circular-progressbar */
 
@@ -28,9 +29,11 @@ export default function DisplayExpense() {
     const user = useContext(UserContext);
 
     useEffect(() => {
-        getSpend(user, year, spend).then((result) => {
-            setPastSpend(result);
-        });
+        getSpend(user, year, spend)
+            .then((result) => {
+                setPastSpend(result);
+            })
+            .catch((err) => console.log(err));
     }, [spend, user]);
 
     const totalSpend = () => {
@@ -70,31 +73,27 @@ function ExpenseAdder({ setPastSpend, year, spend, user }) {
         const date = serverTimestamp();
         const uid = uuidv4();
 
-        setSpendInDatabase(
-            input,
-            cost,
-            date,
-            uid,
-            year,
-            spend,
-            user.email
-        ).then(() => {
-            setPastSpend((prevValue) => {
-                const parsedDate = new Date().getTime() / 1000;
-                return [
-                    {
-                        description: input,
-                        spend: cost,
-                        date: { seconds: parsedDate },
-                        uid,
-                    },
-                    ...prevValue,
-                ];
+        setSpendInDatabase(input, cost, date, uid, year, spend, user.email)
+            .then(() => {
+                setPastSpend((prevValue) => {
+                    const parsedDate = new Date().getTime() / 1000;
+                    return [
+                        {
+                            description: input,
+                            spend: cost,
+                            date: { seconds: parsedDate },
+                            uid,
+                        },
+                        ...prevValue,
+                    ];
+                });
+                setInput("");
+                setCost("");
+                toast.success("New Spend Added");
+            })
+            .catch(() => {
+                toast.error("Something went wrong. Please try again");
             });
-        });
-
-        setInput("");
-        setCost("");
     };
 
     return (
@@ -148,6 +147,7 @@ function SingleExpenseDisplay({ pastSpend, year, spend, setPastSpend }) {
         querySnapshot.forEach(async (document) => {
             try {
                 await deleteDoc(doc(db, docRef, document.id));
+                toast.success("Deleted");
                 setPastSpend((prevSpends) => {
                     return prevSpends.filter((item) => {
                         return item.uid !== documentToDelete.uid;
@@ -155,6 +155,7 @@ function SingleExpenseDisplay({ pastSpend, year, spend, setPastSpend }) {
                 });
             } catch (error) {
                 console.log(error);
+                toast.error("Please try again");
                 setErrorMsg(
                     "Something went wrong. Please refresh and try again"
                 );
