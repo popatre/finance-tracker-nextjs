@@ -19,6 +19,7 @@ import _ from "lodash";
 import { UserContext } from "../../../contexts/UserContext";
 import { getSpend } from "../../../api/dbCalls";
 import toast, { Toaster } from "react-hot-toast";
+import LoadingIcon from "../../../components/Loading";
 
 /*https://www.npmjs.com/package/react-circular-progressbar */
 
@@ -27,10 +28,13 @@ export default function DisplayExpense() {
     const { spend, year } = router.query;
     const [pastSpend, setPastSpend] = useState([]);
     const user = useContext(UserContext);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
+        setIsLoading(true);
         getSpend(user, year, spend)
             .then((result) => {
+                setIsLoading(false);
                 setPastSpend(result);
             })
             .catch((err) => console.log(err));
@@ -47,19 +51,25 @@ export default function DisplayExpense() {
         <main className={styles.container}>
             <h1>{_.capitalize(spend)}</h1>
             <TotalBar total={totalSpend()} />
+            {isLoading ? (
+                <LoadingIcon />
+            ) : (
+                <>
+                    <ExpenseAdder
+                        setPastSpend={setPastSpend}
+                        year={year}
+                        spend={spend}
+                        user={user}
+                    />
 
-            <ExpenseAdder
-                setPastSpend={setPastSpend}
-                year={year}
-                spend={spend}
-                user={user}
-            />
-            <SingleExpenseDisplay
-                pastSpend={pastSpend}
-                year={year}
-                spend={spend}
-                setPastSpend={setPastSpend}
-            />
+                    <SingleExpenseDisplay
+                        pastSpend={pastSpend}
+                        year={year}
+                        spend={spend}
+                        setPastSpend={setPastSpend}
+                    />
+                </>
+            )}
         </main>
     );
 }

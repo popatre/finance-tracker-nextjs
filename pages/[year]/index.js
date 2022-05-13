@@ -9,6 +9,7 @@ import { getCategories } from "../../api/dbCalls";
 import { useState, useEffect, useContext } from "react";
 import { findTotal } from "../../helpers/findTotal";
 import { UserContext } from "../../contexts/UserContext";
+import LoadingIcon from "../../components/Loading";
 
 export default function Home({ setMonth, month }) {
     const [spends, setSpends] = useState([]);
@@ -17,16 +18,18 @@ export default function Home({ setMonth, month }) {
         misc: 0,
         "direct-debits": 0,
     });
-
+    const [isLoading, setIsLoading] = useState(true);
     const user = useContext(UserContext);
 
     const router = useRouter();
     const { year } = router.query;
 
     useEffect(() => {
+        setIsLoading(true);
         getCategories(user, year)
             .then((topics) => {
                 setSpends(topics);
+                setIsLoading(false);
                 topics.forEach((topic) => {
                     findTotal(topic, year, user?.email).then((res) => {
                         setTopicTotals((prevState) => {
@@ -44,7 +47,14 @@ export default function Home({ setMonth, month }) {
             <AuthCheck>
                 <DropDown month={month} setMonth={setMonth} />
                 <TotalBar total={topicTotal} />
-                <SpendTopicContainer spends={spends} topicTotal={topicTotal} />
+                {isLoading ? (
+                    <LoadingIcon />
+                ) : (
+                    <SpendTopicContainer
+                        spends={spends}
+                        topicTotal={topicTotal}
+                    />
+                )}
             </AuthCheck>
         </div>
     );
