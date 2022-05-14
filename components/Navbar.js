@@ -21,9 +21,7 @@ export default function NavBar() {
 
     return (
         <nav className={styles.nav}>
-            <p className={styles.nav__email}>
-                Viewing spends for: {user?.email}{" "}
-            </p>
+            <p className={styles.nav__email}>{user?.email} </p>
             <IconContext.Provider value={{ size: "1em" }}>
                 <button className={styles.btnLogOut} onClick={handleSignOut}>
                     <FiLogOut /> Log out{" "}
