@@ -13,14 +13,6 @@
     min-height: 50vh;
 }
 
-.container__spends {
-    padding: 4rem 0;
-    width: 90%;
-    max-width: 900px;
-    margin-inline: auto;
-    text-align: center;
-}
-
 .main {
     min-height: 100vh;
 
@@ -105,10 +97,13 @@
     box-shadow: 5px 10px 10px #2c2b2b;
 }
 
+.card:hover,
 .card:focus,
 .card:active {
     color: #0070f3;
     border-color: #0070f3;
+    background-color: #bfd8f4;
+    cursor: pointer;
 }
 
 .card h2 {
@@ -128,8 +123,9 @@
 }
 
 .row {
+    margin-inline: auto;
     display: flex;
-    width: 100%;
+    width: 90%;
     align-items: center;
     justify-content: space-around;
     border: 2px solid var(--yellow-color);
@@ -146,48 +142,35 @@
     padding: 0.5em;
 }
 
+.btnSignIn {
+    padding: 2em 2em;
+    border-radius: 10px;
+    border: 2px black solid;
+    font-size: 1rem;
+    margin-top: 3em;
+}
+
+.btnSignIn:hover {
+    background-color: rgb(195, 191, 191);
+    cursor: pointer;
+}
+
 p.errorMsg {
     font-size: 0.8rem;
     color: red;
 }
 
-.delete-btn {
-    background-color: rgb(238, 85, 85);
-    color: white;
-    padding: 0.5em 1em;
-    border-radius: 20px;
+.signInWarning {
+    color: rgb(255, 0, 0);
+    font-size: 1.7rem;
+    font-weight: 600;
+    text-shadow: 0px 1px 4px#0d072c;
 }
 
-.delete-btn:hover {
-    cursor: pointer;
-    background-color: rgb(235, 25, 25);
-}
-
-.spendBtn {
-    cursor: pointer;
-    background-color: var(--yellow-color);
-    padding: 0.5em 1em;
-    border-radius: 20px;
+.welcomeMsg {
     color: white;
-    box-shadow: 5px 10px 10px #2c2b2b;
-    margin-top: 2em;
-    text-transform: capitalize;
     font-weight: bold;
-}
-
-.spendBtn:hover {
-    box-shadow: 0px 1px 10px #b8b7b7;
-}
-
-.rowForm {
-    display: flex;
-
-    justify-content: center;
-}
-
-.colForm {
-    width: 100%;
-    margin-top: 0.8em;
+    font-size: 1.25rem;
 }
 
 @media (max-width: 600px) {

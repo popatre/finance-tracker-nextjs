@@ -21,28 +21,33 @@ export default function Home({ setMonth, month }) {
     };
 
     return (
-        <div className={styles.container}>
-            <h1>Expenses Tracker</h1>
-            {!user ? (
-                <div>
-                    <button className={styles.btnSignIn} onClick={handleSignIn}>
-                        <IconContext.Provider value={{ size: "1.2em" }}>
-                            <FcGoogle /> Sign in with Google
-                        </IconContext.Provider>
-                    </button>
-                </div>
-            ) : (
-                <div>
-                    <DropDown setMonth={setMonth} month={month} />
-                    <p className={styles.welcomeMsg}>
-                        Hello {user.displayName}!
-                    </p>
-                    <p className={styles.welcomeMsg}>
-                        {" "}
-                        Choose a month to begin
-                    </p>
-                </div>
-            )}
+        <div className={styles.container__flex}>
+            <div className={styles.container}>
+                <h1>Expenses Tracker</h1>
+                {!user ? (
+                    <div>
+                        <button
+                            className={styles.btnSignIn}
+                            onClick={handleSignIn}
+                        >
+                            <IconContext.Provider value={{ size: "1.2em" }}>
+                                <FcGoogle /> Sign in with Google
+                            </IconContext.Provider>
+                        </button>
+                    </div>
+                ) : (
+                    <div>
+                        <DropDown setMonth={setMonth} month={month} />
+                        <p className={styles.welcomeMsg}>
+                            Hello {user.displayName}!
+                        </p>
+                        <p className={styles.welcomeMsg}>
+                            {" "}
+                            Choose a month to begin
+                        </p>
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

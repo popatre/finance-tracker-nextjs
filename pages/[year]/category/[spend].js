@@ -177,7 +177,7 @@ function SingleExpenseDisplay({ pastSpend, year, spend, setPastSpend }) {
     };
 
     return (
-        <div className={styles.container}>
+        <div className={styles.container__spends}>
             {pastSpend.map((item) => {
                 return (
                     <div

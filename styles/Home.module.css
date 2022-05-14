@@ -4,6 +4,21 @@
     max-width: 900px;
     margin: 0 auto;
     text-align: center;
+    background: rgba(254, 255, 255, 0.296);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: #eddbdb 0px 0px 5px 2px;
+    min-height: 50vh;
+}
+
+.container__flex {
+    height: 80vh;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .main {
