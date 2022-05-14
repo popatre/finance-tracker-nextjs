@@ -1,34 +1,90 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<!-- Make sure the file always includes the following elements:
 
-## Getting Started
+Titles and internal titles
+Introduction - the project's aim
+Technologies
+Launch
 
-First, run the development server:
+Consider also using additional elements such as:
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+Table of contents
+Illustrations
+Scope of functionalities
+Examples of use
+Project status
+Sources
+Other information -->
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Table of Contents
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+-   General Info
+-   Technologies
+-   Setup
+-   Using the app
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+# General Info
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+A lightweight app for tracking your expenditure.
 
-## Learn More
+Users can log in via their google account, and manually add what they have spent money on.
 
-To learn more about Next.js, take a look at the following resources:
+The project was born out of a desire to know exactly where I was spending money, without having to trawl through a banking app.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**A hosted version of the site can be found here: https://next-firebase-news.vercel.app/**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Technologies
 
-## Deploy on Vercel
+-   Node v.16.14.0
+-   Next.js v.12.1.0
+-   React.js v.17.0.2
+-   Firebase v.9.6.8 - (Auth, Firestore)
+-   React hot toast v.2.2.0
+-   Lodash
+-   Vercel continuous deployment
+-   React Hooks - (useState, useEffect, useContext)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Setup
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1.  Clone this repository to your usual file directory for project. To do this, run the following command in your terminal
+
+        git clone https://github.com/popatre/finance-tracker-nextjs
+
+2.  Open the directory in your usual code editor and then run the following command to install the dependencies needed to run the project
+
+        npm install
+
+3.  This project uses Firebase to collect the data from a database. You will need to set up your own firebase account, create a new web app, and then copy the configuration code provided, into the firebase.js file.
+
+It should look something like this.
+
+        const firebaseConfig = {
+            apiKey: YOUR CONFIG DETAILS HERE,
+            authDomain: YOUR CONFIG DETAILS HERE,
+            projectId: YOUR CONFIG DETAILS HERE,
+            storageBucket: YOUR CONFIG DETAILS HERE,
+             messagingSenderId: YOUR CONFIG DETAILS HERE,
+             appId: YOUR CONFIG DETAILS HERE,
+             measurementId: YOUR CONFIG DETAILS HERE,
+             };
+
+You may need to also enable 'auth' from the 'auth' tab in firebase, then enable Google in the providers.
+
+4. To start the project, type the command `npm run dev`. This should enable you to see the project running at `localhost:3000`, in your browser.
+
+5. You will need to log in via google to view the pages. As you have created a new firebase account and database, there should be three categories available, but no current spends.
+
+## Using the App
+
+Users can sign in using the 'log in' button, and use the Google email to do this.
+
+The navbar at the top should indicate what account is currently signed in.
+
+Pick a month to view the categories and current total spends for each category, as well as a total at the top.
+
+Click a category to view the individual spends for that category, or add a new one.
+
+Use the form inside each category to add a new expenditure.
+
+Spends can be deleted by using the 'delete' button next to each spend.
+
+Users can log out, using the button in the top right.
