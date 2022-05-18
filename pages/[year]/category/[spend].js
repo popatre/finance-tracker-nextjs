@@ -9,7 +9,6 @@ import {
     deleteDoc,
     query,
     where,
-    orderBy,
 } from "firebase/firestore";
 import { db } from "../../../firebase/firebase";
 import { useState, useEffect, useContext } from "react";
@@ -21,8 +20,7 @@ import { getSpend } from "../../../api/dbCalls";
 import toast, { Toaster } from "react-hot-toast";
 import LoadingIcon from "../../../components/Loading";
 import AuthCheck from "../../../components/AuthCheck";
-
-/*https://www.npmjs.com/package/react-circular-progressbar */
+import { FaRegTrashAlt } from "react-icons/fa";
 
 export default function DisplayExpense() {
     const router = useRouter();
@@ -185,7 +183,7 @@ function SingleExpenseDisplay({ pastSpend, year, spend, setPastSpend }) {
                         className={`${styles.row} ${styles.card}`}
                     >
                         <>
-                            <p className={styles.col}>
+                            <p className={`${styles.col} ${styles.date}`}>
                                 {new Date(
                                     item.date.seconds * 1000
                                 ).toDateString()}
@@ -193,7 +191,9 @@ function SingleExpenseDisplay({ pastSpend, year, spend, setPastSpend }) {
                             <h3 className={styles.col}>
                                 {_.capitalize(item.description)}
                             </h3>
-                            <p className={styles.col}>Cost:£{item.spend}</p>
+                            <p className={`${styles.col} ${styles.cost}`}>
+                                Cost:£{item.spend}
+                            </p>
                             {errorMsg ? (
                                 <p className={styles.errorMsg}>{errorMsg}</p>
                             ) : (
@@ -201,7 +201,7 @@ function SingleExpenseDisplay({ pastSpend, year, spend, setPastSpend }) {
                                     className={styles["delete-btn"]}
                                     onClick={() => handleDelete(item)}
                                 >
-                                    Delete
+                                    <FaRegTrashAlt />
                                 </button>
                             )}
                         </>

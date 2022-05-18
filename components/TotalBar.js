@@ -7,7 +7,7 @@ export default function TotalBar({ total }) {
 
     const percentage = ((totalValues / 1600) * 100).toFixed(1);
     return typeof total !== "object" ? (
-        <h2>Total spent:£{total}</h2>
+        <h2 className={styles.spendH2}>Total spent:£{total}</h2>
     ) : (
         <div className={styles.container}>
             <CircularProgressbar
@@ -27,7 +27,9 @@ export default function TotalBar({ total }) {
                 value={percentage}
                 text={`${percentage}%`}
             />
-            <h2>Total spent:£{totalValues.toFixed(2)}</h2>
+            <h2 className={styles.totalDisplay}>
+                Total spent:£{totalValues.toFixed(2)}
+            </h2>
         </div>
     );
 }

@@ -1,5 +1,10 @@
 :root {
     --yellow-color: rgba(188, 150, 11, 0.939);
+    --small: 576px;
+    --medium: 768px;
+    --large: 992px;
+    --x-large: 1200px;
+    --xx-large: 1400px;
 }
 
 html,

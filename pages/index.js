@@ -23,7 +23,7 @@ export default function Home({ setMonth, month }) {
     return (
         <div className={styles.container__flex}>
             <div className={styles.container}>
-                <h1>Expenses Tracker</h1>
+                <h1 className={styles.title}>Expenses Tracker</h1>
                 {!user ? (
                     <div>
                         <button

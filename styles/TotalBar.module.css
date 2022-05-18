@@ -3,3 +3,12 @@
     margin-inline: auto;
     margin-top: 2em;
 }
+
+.totalDisplay {
+    font-size: 1.5rem;
+    margin-block: 1.6em;
+}
+
+.spendH2 {
+    font-size: 1.5rem;
+}
