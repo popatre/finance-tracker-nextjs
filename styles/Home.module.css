@@ -178,5 +178,8 @@ p.errorMsg {
     font-size: 1.25rem;
 }
 
-@media (max-width: var(--small)) {
+@media (min-width: 768px) {
+    .container {
+        width: 70%;
+    }
 }

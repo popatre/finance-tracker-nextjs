@@ -142,5 +142,11 @@ p.errorMsg {
     width: 50%;
 }
 
-@media (max-width: 600px) {
+@media (min-width: 768px) {
+    .container {
+        width: 85%;
+    }
+    .card h3 {
+        font-size: 1.125rem;
+    }
 }
