@@ -44,3 +44,17 @@
     color: ivory;
     text-shadow: black 1px 1px 4px;
 }
+.nav__contents {
+    display: flex;
+    align-items: center;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        display: flex;
+        justify-content: flex-end;
+        width: 85%;
+        max-width: 1200px;
+        margin-inline: auto;
+    }
+}

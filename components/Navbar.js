@@ -21,12 +21,19 @@ export default function NavBar() {
 
     return (
         <nav className={styles.nav}>
-            <p className={styles.nav__email}>{user?.email} </p>
-            <IconContext.Provider value={{ size: "1em" }}>
-                <button className={styles.btnLogOut} onClick={handleSignOut}>
-                    <FiLogOut /> Log out{" "}
-                </button>
-            </IconContext.Provider>
+            <div className={styles.container}>
+                <div className={styles.nav__contents}>
+                    <p className={styles.nav__email}>{user?.email} </p>
+                    <IconContext.Provider value={{ size: "1em" }}>
+                        <button
+                            className={styles.btnLogOut}
+                            onClick={handleSignOut}
+                        >
+                            <FiLogOut /> Log out{" "}
+                        </button>
+                    </IconContext.Provider>
+                </div>
+            </div>
         </nav>
     );
 }
