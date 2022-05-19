@@ -74,7 +74,7 @@
     display: flex;
     width: 100%;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     border: 2px solid var(--yellow-color);
 }
 
@@ -148,5 +148,35 @@ p.errorMsg {
     }
     .card h3 {
         font-size: 1.125rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .row {
+        margin-inline: auto;
+        display: flex;
+        width: 95%;
+    }
+    .card h3 {
+        font-size: 1.4rem;
+    }
+    .card p.date {
+        font-size: 1.1rem;
+    }
+
+    .card .cost {
+        font-size: 1.2rem;
+        margin-inline: 0.3em;
+    }
+    .delete-btn {
+        margin-right: 1em;
+    }
+    .spendBtn {
+        padding: 1em 1.8em;
+        margin-top: 3em;
+        font-size: 1.1rem;
+    }
+    .colForm label {
+        font-size: 1.5rem;
     }
 }

@@ -112,3 +112,14 @@ p.errorMsg {
         font-size: 1.125rem;
     }
 }
+
+@media (min-width: 992px) {
+    .row {
+        margin-inline: auto;
+        display: flex;
+        width: 80%;
+    }
+    .card p {
+        font-size: 1.3rem;
+    }
+}
