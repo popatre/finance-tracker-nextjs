@@ -74,8 +74,8 @@ function TopicDisplay({ spends, topicTotal }) {
 
     return spends.map((item) => {
         return (
-            <Link href={`${year}/category/${item}`}>
-                <div key={item} className={`${styles.row} ${styles.card}`}>
+            <Link key={item} href={`${year}/category/${item}`}>
+                <div className={`${styles.row} ${styles.card}`}>
                     <h2 className={styles.col}>{item}</h2>
                     <p className={styles.col}>
                         Spent this month: £{topicTotal[item]}

@@ -37,7 +37,7 @@ export default function DisplayExpense() {
                 setPastSpend(result);
             })
             .catch((err) => console.log(err));
-    }, [spend, user]);
+    }, [spend, user, year]);
 
     const totalSpend = () => {
         const total = pastSpend.reduce((acc, curr) => {
