@@ -30,7 +30,7 @@ Users can log in via their google account, and manually add what they have spent
 
 The project was born out of a desire to know exactly where I was spending money, without having to trawl through a banking app.
 
-**A hosted version of the site can be found here: https://next-firebase-news.vercel.app/**
+**A hosted version of the site can be found here: [finance-tracker-nextjs.vercel.app](finance-tracker-nextjs.vercel.app)**
 
 ## Technologies
 
