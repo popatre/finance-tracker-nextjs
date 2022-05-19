@@ -112,22 +112,19 @@ function ExpenseAdder({ setPastSpend, year, spend, user }) {
             <div className={styles.rowForm}>
                 <div className={styles.colForm}>
                     <label htmlFor="expense">Expense:</label>
+                    <label htmlFor="cost">Cost:</label>
                 </div>
+
                 <div className={styles.colForm}>
-                    <input
+                    <textarea
                         required
+                        rows="2"
                         name="expense"
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
-                    ></input>
-                </div>
-            </div>
-            <div className={styles.rowForm}>
-                <div className={styles.colForm}>
-                    <label htmlFor="cost">Cost:</label>
-                </div>
-                <div className={styles.colForm}>
+                    ></textarea>
                     <input
+                        className={styles.costForm}
                         required
                         name="cost"
                         value={cost}
@@ -136,6 +133,7 @@ function ExpenseAdder({ setPastSpend, year, spend, user }) {
                     ></input>
                 </div>
             </div>
+
             <button className={styles.spendBtn}>Add Expense</button>
         </form>
     );
