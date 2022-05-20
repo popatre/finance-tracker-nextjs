@@ -11,6 +11,7 @@ import {
     orderBy,
     writeBatch,
     updateDoc,
+    getDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 
@@ -69,4 +70,17 @@ export const updateIncome = async (user, year, income) => {
 
     await updateDoc(docRef, { income: income });
     console.log("updated income");
+};
+
+export const getCurrentIncome = async (user, year) => {
+    const collectionRef = `username/${user?.email}/${year}`;
+    const docRef = doc(db, collectionRef, "income");
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        return docSnap.data();
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
 };

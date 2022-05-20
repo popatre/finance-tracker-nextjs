@@ -1,11 +1,23 @@
+import { useEffect, useState } from "react";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { getCurrentIncome } from "../api/dbCalls";
 import styles from "../styles/TotalBar.module.css";
 
-export default function TotalBar({ total }) {
+export default function TotalBar({ total, user, year, incomeUpdated }) {
+    const [income, setIncome] = useState(1000);
+    useEffect(() => {
+        getCurrentIncome(user, year).then((result) => {
+            setIncome(result?.income);
+        });
+    }, [incomeUpdated, user, year]);
+
     const totalValues = Object.values(total).reduce((a, b) => +a + +b);
 
-    const percentage = ((totalValues / 1600) * 100).toFixed(1);
+    const percentage = ((totalValues / income) * 100).toFixed(1);
+    let displayMessage = "";
+    if (percentage == Infinity) displayMessage = "No income";
+    else displayMessage = percentage + "%";
     return typeof total !== "object" ? (
         <h2 className={styles.spendH2}>Total spent:£{total}</h2>
     ) : (
@@ -13,7 +25,7 @@ export default function TotalBar({ total }) {
             <CircularProgressbar
                 styles={buildStyles({
                     // Text size
-                    textSize: "20px",
+                    textSize: "15px",
 
                     // How long animation takes to go from one percentage to another, in seconds
                     pathTransitionDuration: 2.9,
@@ -25,7 +37,7 @@ export default function TotalBar({ total }) {
                     // backgroundColor: "white",
                 })}
                 value={percentage}
-                text={`${percentage}%`}
+                text={`${displayMessage}`}
             />
             <h2 className={styles.totalDisplay}>
                 Total spent:£{totalValues.toFixed(2)}

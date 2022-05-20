@@ -19,6 +19,7 @@ export default function Home({ setMonth, month }) {
         "direct-debits": 0,
     });
     const [isLoading, setIsLoading] = useState(true);
+    const [incomeUpdated, setIncomeUpdated] = useState(false);
     const user = useContext(UserContext);
 
     const router = useRouter();
@@ -47,8 +48,17 @@ export default function Home({ setMonth, month }) {
             <h1 className={styles.title}>Expenses Tracker</h1>
             <AuthCheck>
                 <DropDown month={month} setMonth={setMonth} />
-                <IncomeSetter user={user} year={year} />
-                <TotalBar total={topicTotal} />
+                <IncomeSetter
+                    user={user}
+                    year={year}
+                    setIncomeUpdated={setIncomeUpdated}
+                />
+                <TotalBar
+                    total={topicTotal}
+                    user={user}
+                    year={year}
+                    incomeUpdated={incomeUpdated}
+                />
                 {isLoading ? (
                     <LoadingIcon />
                 ) : (
@@ -88,29 +98,41 @@ function TopicDisplay({ spends, topicTotal }) {
     });
 }
 
-function IncomeSetter({ user, year }) {
+function IncomeSetter({ user, year, setIncomeUpdated }) {
     const [input, setInput] = useState("");
+    const [isIncome, setIsIncome] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             await updateIncome(user, year, input);
+            setIsIncome(false);
+            setIncomeUpdated((prev) => !prev);
         } catch (error) {
             console.log(error);
         }
     };
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <label for="income">Set income:</label>
-            <input
-                type="number"
-                id="income"
-                name="income"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-            />
-            <button>Submit</button>
-        </form>
+    return !isIncome ? (
+        <div>
+            <button onClick={() => setIsIncome(true)}>
+                {" "}
+                Set monthly income
+            </button>
+        </div>
+    ) : (
+        <div>
+            <form onSubmit={handleSubmit}>
+                <label htmlFor="income">Set income:</label>
+                <input
+                    type="number"
+                    id="income"
+                    name="income"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                />
+                <button>Submit</button>
+            </form>
+        </div>
     );
 }
