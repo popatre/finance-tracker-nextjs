@@ -114,16 +114,19 @@ function IncomeSetter({ user, year, setIncomeUpdated }) {
 
     return !isIncome ? (
         <div>
-            <button onClick={() => setIsIncome(true)}>
+            <button
+                className={styles.btn__income}
+                onClick={() => setIsIncome(true)}
+            >
                 {" "}
-                Set monthly income
+                Change monthly income
             </button>
         </div>
     ) : (
-        <div>
-            <form onSubmit={handleSubmit}>
-                <label htmlFor="income">Set income:</label>
+        <div className={styles.input__cont}>
+            <form className={styles.income__form} onSubmit={handleSubmit}>
                 <input
+                    placeholder="Set Income"
                     type="number"
                     id="income"
                     name="income"

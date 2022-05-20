@@ -83,6 +83,43 @@
     cursor: pointer;
 }
 
+.btn__income {
+    cursor: pointer;
+    background-color: var(--yellow-color);
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 5px 10px 10px #2c2b2b;
+    margin-top: 2em;
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
+.input__cont {
+    margin-top: 1em;
+}
+
+.income__form label {
+    color: white;
+    text-shadow: 4px 2px 6px #1e1e1e;
+    font-size: 1.25rem;
+    margin-right: 1em;
+}
+
+.income__form button {
+    cursor: pointer;
+    background-color: var(--yellow-color);
+    padding: 0.3em 0.5em;
+
+    margin-left: 0.5em;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 5px 10px 10px #2c2b2b;
+
+    text-transform: capitalize;
+    font-weight: bold;
+}
+
 p.errorMsg {
     font-size: 0.8rem;
     color: red;
