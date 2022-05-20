@@ -14,9 +14,11 @@ export default function TotalBar({ total, user, year, incomeUpdated }) {
 
     const totalValues = Object.values(total).reduce((a, b) => +a + +b);
 
-    const percentage = ((totalValues / income) * 100).toFixed(1);
+    const percentage = +((totalValues / +income) * 100).toFixed(1);
+
     let displayMessage = "";
-    if (percentage == Infinity) displayMessage = "No income";
+    if (percentage === Infinity || isNaN(percentage))
+        displayMessage = "No income";
     else displayMessage = percentage + "%";
     return typeof total !== "object" ? (
         <h2 className={styles.spendH2}>Total spent:£{total}</h2>
