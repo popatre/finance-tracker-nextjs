@@ -66,10 +66,7 @@ export const getSpend = async (user, year, spend) => {
 export const updateIncome = async (user, year, income) => {
     const collectionRef = `username/${user?.email}/${year}`;
     const docRef = doc(db, collectionRef, "income");
-    try {
-        await updateDoc(docRef, { income: income });
-        console.log("updated income");
-    } catch (error) {
-        console.log(error);
-    }
+
+    await updateDoc(docRef, { income: income });
+    console.log("updated income");
 };

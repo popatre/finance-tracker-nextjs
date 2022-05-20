@@ -5,7 +5,7 @@ import TotalBar from "../../components/TotalBar";
 import Link from "next/link";
 import AuthCheck from "../../components/AuthCheck";
 import DropDown from "../../components/DropDown";
-import { getCategories } from "../../api/dbCalls";
+import { getCategories, updateIncome } from "../../api/dbCalls";
 import { useState, useEffect, useContext } from "react";
 import { findTotal } from "../../helpers/findTotal";
 import { UserContext } from "../../contexts/UserContext";
@@ -47,6 +47,7 @@ export default function Home({ setMonth, month }) {
             <h1 className={styles.title}>Expenses Tracker</h1>
             <AuthCheck>
                 <DropDown month={month} setMonth={setMonth} />
+                <IncomeSetter user={user} year={year} />
                 <TotalBar total={topicTotal} />
                 {isLoading ? (
                     <LoadingIcon />
@@ -85,4 +86,31 @@ function TopicDisplay({ spends, topicTotal }) {
             </Link>
         );
     });
+}
+
+function IncomeSetter({ user, year }) {
+    const [input, setInput] = useState("");
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await updateIncome(user, year, input);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <label for="income">Set income:</label>
+            <input
+                type="number"
+                id="income"
+                name="income"
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+            />
+            <button>Submit</button>
+        </form>
+    );
 }
