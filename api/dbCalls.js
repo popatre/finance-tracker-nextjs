@@ -9,6 +9,7 @@ import {
     query,
     where,
     orderBy,
+    writeBatch,
 } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 
@@ -19,13 +20,32 @@ export const signInGoogle = async () => {
 
 export const getCategories = async (user, year) => {
     const collectionRef = `username/${user?.email}/${year}`;
-    console.log(collectionRef, user);
+
     const querySnapshot = await getDocs(collection(db, collectionRef));
 
-    const result = querySnapshot.docs.map((doc) => {
-        return doc.id;
-    });
-    if (result.length === 0) result = ["direct-debits", "food", "misc"];
+    const result = querySnapshot.docs
+        .map((doc) => {
+            return doc.id;
+        })
+        .filter((doc) => doc !== "income");
+
+    if (result.length === 0) {
+        const batch = writeBatch(db);
+
+        const collectionRef1 = `username/${user?.email}/${year}`;
+
+        const docRef = doc(db, collectionRef1, "food");
+        const docRef1 = doc(db, collectionRef1, "misc");
+        const docRef2 = doc(db, collectionRef1, "direct-debits");
+        const docRef3 = doc(db, collectionRef1, "income");
+        batch.set(docRef, {});
+        batch.set(docRef1, {});
+        batch.set(docRef2, {});
+        batch.set(docRef3, {});
+        await batch.commit();
+
+        result = ["direct-debits", "food", "misc"];
+    }
 
     return result;
 };

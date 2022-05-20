@@ -28,6 +28,7 @@ export default function Home({ setMonth, month }) {
         setIsLoading(true);
         getCategories(user, year)
             .then((topics) => {
+                console.log(topics, "****");
                 setSpends(topics);
                 setIsLoading(false);
                 topics.forEach((topic) => {
