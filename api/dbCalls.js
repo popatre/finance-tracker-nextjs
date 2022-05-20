@@ -10,6 +10,7 @@ import {
     where,
     orderBy,
     writeBatch,
+    updateDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 
@@ -41,7 +42,7 @@ export const getCategories = async (user, year) => {
         batch.set(docRef, {});
         batch.set(docRef1, {});
         batch.set(docRef2, {});
-        batch.set(docRef3, {});
+        batch.set(docRef3, { income: 0 });
         await batch.commit();
 
         result = ["direct-debits", "food", "misc"];
@@ -60,4 +61,15 @@ export const getSpend = async (user, year, spend) => {
         return doc.data();
     });
     return result;
+};
+
+export const updateIncome = async (user, year, income) => {
+    const collectionRef = `username/${user?.email}/${year}`;
+    const docRef = doc(db, collectionRef, "income");
+    try {
+        await updateDoc(docRef, { income: income });
+        console.log("updated income");
+    } catch (error) {
+        console.log(error);
+    }
 };
