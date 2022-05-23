@@ -10,6 +10,7 @@ import { useState, useEffect, useContext } from "react";
 import { findTotal } from "../../helpers/findTotal";
 import { UserContext } from "../../contexts/UserContext";
 import LoadingIcon from "../../components/Loading";
+import Error404 from "../../components/error404";
 
 export default function Home({ setMonth, month }) {
     const [spends, setSpends] = useState([]);
@@ -20,27 +21,52 @@ export default function Home({ setMonth, month }) {
     });
     const [isLoading, setIsLoading] = useState(true);
     const [incomeUpdated, setIncomeUpdated] = useState(false);
+    const [nonRoute, setNonRoute] = useState(false);
     const user = useContext(UserContext);
+
+    const monthGreenList = [
+        "january",
+        "february",
+        "march",
+        "april",
+        "may",
+        "june",
+    ];
 
     const router = useRouter();
     const { year } = router.query;
 
     useEffect(() => {
+        if (monthGreenList.includes(year)) {
+        }
+    }, [year]);
+
+    useEffect(() => {
         setIsLoading(true);
-        getCategories(user, year)
-            .then((topics) => {
-                setSpends(topics);
-                setIsLoading(false);
-                topics.forEach((topic) => {
-                    findTotal(topic, year, user?.email).then((res) => {
-                        setTopicTotals((prevState) => {
-                            return { ...prevState, [topic]: res };
+        setNonRoute(false);
+
+        if (monthGreenList.includes(year)) {
+            getCategories(user, year)
+                .then((topics) => {
+                    setSpends(topics);
+                    setIsLoading(false);
+                    topics.forEach((topic) => {
+                        findTotal(topic, year, user?.email).then((res) => {
+                            setTopicTotals((prevState) => {
+                                return { ...prevState, [topic]: res };
+                            });
                         });
                     });
-                });
-            })
-            .catch((err) => console.log(err));
+                })
+                .catch((err) => console.log(err));
+        } else {
+            setNonRoute(true);
+        }
     }, [year, user]);
+
+    if (nonRoute) {
+        return <Error404 code="404" message="Page Not Found" />;
+    }
 
     return (
         <div className={styles.container}>
