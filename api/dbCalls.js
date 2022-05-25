@@ -81,6 +81,19 @@ export const getCurrentIncome = async (user, year) => {
         return docSnap.data();
     } else {
         // doc.data() will be undefined in this case
-        console.log("No such document!");
+        //console.log("No such document!");
+    }
+};
+
+export const getSpendsInDb = async (user, year, spend) => {
+    const collectionRef = `username/${user?.email}/${year}`;
+
+    const docRef = doc(db, collectionRef, `${spend}`);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+        return docSnap.data();
+    } else {
+        return Promise.reject("No such document");
     }
 };

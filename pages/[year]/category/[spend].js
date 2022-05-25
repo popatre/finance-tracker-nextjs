@@ -16,11 +16,12 @@ import { v4 as uuidv4 } from "uuid";
 import { setSpendInDatabase } from "../../../helpers/setSpend";
 import _ from "lodash";
 import { UserContext } from "../../../contexts/UserContext";
-import { getSpend } from "../../../api/dbCalls";
+import { getSpend, getSpendsInDb } from "../../../api/dbCalls";
 import toast, { Toaster } from "react-hot-toast";
 import LoadingIcon from "../../../components/Loading";
 import AuthCheck from "../../../components/AuthCheck";
 import { FaRegTrashAlt } from "react-icons/fa";
+import Error404 from "../../../components/error404";
 
 export default function DisplayExpense() {
     const router = useRouter();
@@ -28,15 +29,24 @@ export default function DisplayExpense() {
     const [pastSpend, setPastSpend] = useState([]);
     const user = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(false);
 
     useEffect(() => {
         setIsLoading(true);
-        getSpend(user, year, spend)
+        setIsError(false);
+        getSpendsInDb(user, year, spend)
+            .then(() => {
+                setIsError(false);
+                return getSpend(user, year, spend);
+            })
             .then((result) => {
                 setIsLoading(false);
+
                 setPastSpend(result);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                setIsError(true);
+            });
     }, [spend, user, year]);
 
     const totalSpend = () => {
@@ -45,6 +55,8 @@ export default function DisplayExpense() {
         }, 0);
         return total.toFixed(2);
     };
+
+    if (isError) return <Error404 code="404" message="Page Not Found" />;
 
     return (
         <main className={styles.container}>
