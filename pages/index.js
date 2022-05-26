@@ -26,7 +26,9 @@ export default function Home({ setMonth, month }) {
             <Metatags
                 title="Finance Tracker"
                 description="Lightweight, manual finance tracker to help you keep track of your spending"
-                image="https://i.ibb.co/nbsjpsj/Screenshot-2022-05-26-at-21-31-05.png"
+                image={
+                    "https://i.ibb.co/nbsjpsj/Screenshot-2022-05-26-at-21-31-05.png"
+                }
             />
             <div className={styles.container}>
                 <h1 className={styles.title}>Expenses Tracker</h1>
