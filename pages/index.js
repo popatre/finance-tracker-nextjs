@@ -7,7 +7,7 @@ import { UserContext } from "../contexts/UserContext";
 import { FcGoogle } from "react-icons/fc";
 import { IconContext } from "react-icons";
 import Metatags from "../components/Metatags";
-import metaImage from "../public/metaImage.png";
+import metaImage from "../public/metaimage.png";
 
 export default function Home({ setMonth, month }) {
     const user = useContext(UserContext);
