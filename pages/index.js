@@ -27,7 +27,7 @@ export default function Home({ setMonth, month }) {
                 title="Finance Tracker"
                 description="Lightweight, manual finance tracker to help you keep track of your spending"
                 image={
-                    "https://i.ibb.co/nbsjpsj/Screenshot-2022-05-26-at-21-31-05.png"
+                    "https://newsfeed.org/wp-content/uploads/How-news-feed-works-Newsfeed.png"
                 }
             />
             <div className={styles.container}>
