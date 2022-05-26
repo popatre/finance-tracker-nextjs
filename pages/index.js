@@ -26,9 +26,7 @@ export default function Home({ setMonth, month }) {
             <Metatags
                 title="Finance Tracker"
                 description="Lightweight, manual finance tracker to help you keep track of your spending"
-                image={
-                    "https://newsfeed.org/wp-content/uploads/How-news-feed-works-Newsfeed.png"
-                }
+                image={""}
             />
             <div className={styles.container}>
                 <h1 className={styles.title}>Expenses Tracker</h1>
