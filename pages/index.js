@@ -7,7 +7,6 @@ import { UserContext } from "../contexts/UserContext";
 import { FcGoogle } from "react-icons/fc";
 import { IconContext } from "react-icons";
 import Metatags from "../components/Metatags";
-import metaImage from "../public/metaimage.png";
 
 export default function Home({ setMonth, month }) {
     const user = useContext(UserContext);
@@ -27,7 +26,7 @@ export default function Home({ setMonth, month }) {
             <Metatags
                 title="Finance Tracker"
                 description="Lightweight, manual finance tracker to help you keep track of your spending"
-                image={metaImage}
+                image="https://i.ibb.co/nbsjpsj/Screenshot-2022-05-26-at-21-31-05.png"
             />
             <div className={styles.container}>
                 <h1 className={styles.title}>Expenses Tracker</h1>
