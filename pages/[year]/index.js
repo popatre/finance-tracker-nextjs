@@ -69,7 +69,7 @@ export default function Home({ setMonth, month }) {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>Expenses Tracker</h1>
+            <h1 className={styles.title}>Outgoings: {year}</h1>
             <AuthCheck>
                 <DropDown month={month} setMonth={setMonth} />
                 <IncomeSetter

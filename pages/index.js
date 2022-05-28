@@ -29,7 +29,7 @@ export default function Home({ setMonth, month }) {
                 image={""}
             />
             <div className={styles.container}>
-                <h1 className={styles.title}>Expenses Tracker</h1>
+                <h1 className={styles.title}>Finance Tracker</h1>
                 {!user ? (
                     <div>
                         <button

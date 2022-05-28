@@ -13,14 +13,6 @@
     min-height: 50vh;
 }
 
-.grid {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    max-width: 800px;
-}
-
 .card {
     margin: 1rem 0;
     padding: 1.5rem;
@@ -136,6 +128,10 @@ p.errorMsg {
     color: white;
     font-weight: bold;
     font-size: 1.25rem;
+}
+
+.title {
+    text-transform: capitalize;
 }
 
 @media (min-width: 768px) {
