@@ -97,29 +97,28 @@ export default function Home({ setMonth, month }) {
 }
 
 function SpendTopicContainer({ spends, topicTotal }) {
+    const router = useRouter();
+    const { year } = router.query;
     return (
         <main>
-            <TopicDisplay spends={spends} topicTotal={topicTotal} />
+            {spends.map((item) => {
+                return (
+                    <Link key={item} href={`${year}/category/${item}`}>
+                        <TopicDisplay item={item} topicTotal={topicTotal} />
+                    </Link>
+                );
+            })}
         </main>
     );
 }
 
-function TopicDisplay({ spends, topicTotal }) {
-    const router = useRouter();
-    const { year } = router.query;
-
-    return spends.map((item) => {
-        return (
-            <Link key={item} href={`${year}/category/${item}`}>
-                <div className={`${styles.row} ${styles.card}`}>
-                    <h2 className={styles.col}>{item}</h2>
-                    <p className={styles.col}>
-                        Spent this month: £{topicTotal[item]}
-                    </p>
-                </div>
-            </Link>
-        );
-    });
+function TopicDisplay({ item, topicTotal }) {
+    return (
+        <div className={`${styles.row} ${styles.card}`}>
+            <h2 className={styles.col}>{item}</h2>
+            <p className={styles.col}>Spent this month: £{topicTotal[item]}</p>
+        </div>
+    );
 }
 
 function IncomeSetter({ user, year, setIncomeUpdated }) {
