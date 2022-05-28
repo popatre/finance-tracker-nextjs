@@ -108,6 +108,7 @@ function SpendTopicContainer({ spends, topicTotal }) {
                     </Link>
                 );
             })}
+            <AddNewCategory />
         </main>
     );
 }
@@ -159,6 +160,43 @@ function IncomeSetter({ user, year, setIncomeUpdated }) {
                 />
                 <button>Submit</button>
             </form>
+        </div>
+    );
+}
+
+function AddNewCategory() {
+    const [isClicked, setIsClicked] = useState(false);
+    const [input, setInput] = useState("");
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+    };
+
+    const handleCancel = () => {
+        setIsClicked(false);
+        setInput("");
+    };
+
+    return (
+        <div className={`${styles.row} ${styles.card}`}>
+            {!isClicked ? (
+                <h2
+                    onClick={() => setIsClicked(true)}
+                    className={styles.col__addNew}
+                >
+                    Add New Category
+                </h2>
+            ) : (
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        {" "}
+                        Category name
+                        <input onChange={(e) => setInput(e.target.value)} />
+                    </label>
+                    <button>Add Category</button>
+                    <button onClick={handleCancel}>Cancel</button>
+                </form>
+            )}
         </div>
     );
 }

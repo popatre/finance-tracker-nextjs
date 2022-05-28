@@ -62,6 +62,12 @@
     text-align: center;
 }
 
+.col__addNew {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+}
+
 .btnSignIn {
     padding: 2em 2em;
     border-radius: 10px;
