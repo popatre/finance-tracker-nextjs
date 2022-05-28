@@ -103,9 +103,11 @@ function SpendTopicContainer({ spends, topicTotal }) {
         <main>
             {spends.map((item) => {
                 return (
-                    <Link key={item} href={`${year}/category/${item}`}>
-                        <TopicDisplay item={item} topicTotal={topicTotal} />
-                    </Link>
+                    <TopicDisplay
+                        item={item}
+                        topicTotal={topicTotal}
+                        year={year}
+                    />
                 );
             })}
             <AddNewCategory />
@@ -113,12 +115,16 @@ function SpendTopicContainer({ spends, topicTotal }) {
     );
 }
 
-function TopicDisplay({ item, topicTotal }) {
+function TopicDisplay({ item, topicTotal, year }) {
     return (
-        <div className={`${styles.row} ${styles.card}`}>
-            <h2 className={styles.col}>{item}</h2>
-            <p className={styles.col}>Spent this month: £{topicTotal[item]}</p>
-        </div>
+        <Link key={item} href={`${year}/category/${item}`}>
+            <div className={`${styles.row} ${styles.card}`}>
+                <h2 className={styles.col}>{item}</h2>
+                <p className={styles.col}>
+                    Spent this month: £{topicTotal[item]}
+                </p>
+            </div>
+        </Link>
     );
 }
 
