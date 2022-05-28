@@ -4,7 +4,7 @@ import TotalBar from "../../components/TotalBar";
 import Link from "next/link";
 import AuthCheck from "../../components/AuthCheck";
 import DropDown from "../../components/DropDown";
-import { getCategories, updateIncome } from "../../api/dbCalls";
+import { addNewCategory, getCategories, updateIncome } from "../../api/dbCalls";
 import { useState, useEffect, useContext } from "react";
 import { findTotal } from "../../helpers/findTotal";
 import { UserContext } from "../../contexts/UserContext";
@@ -89,6 +89,7 @@ export default function Home({ setMonth, month }) {
                     <SpendTopicContainer
                         spends={spends}
                         topicTotal={topicTotal}
+                        user={user}
                     />
                 )}
             </AuthCheck>
@@ -96,7 +97,7 @@ export default function Home({ setMonth, month }) {
     );
 }
 
-function SpendTopicContainer({ spends, topicTotal }) {
+function SpendTopicContainer({ spends, topicTotal, user }) {
     const router = useRouter();
     const { year } = router.query;
     return (
@@ -110,7 +111,7 @@ function SpendTopicContainer({ spends, topicTotal }) {
                     />
                 );
             })}
-            <AddNewCategory />
+            <AddNewCategory user={user} year={year} />
         </main>
     );
 }
@@ -170,12 +171,21 @@ function IncomeSetter({ user, year, setIncomeUpdated }) {
     );
 }
 
-function AddNewCategory() {
+function AddNewCategory({ user, year }) {
+    const router = useRouter();
+
     const [isClicked, setIsClicked] = useState(false);
     const [input, setInput] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
+        try {
+            await addNewCategory(input, user, year);
+            router.push(`${year}/category/${input}`);
+        } catch (error) {
+            setErrorMsg("Something went wrong. Please refresh and try again");
+        }
     };
 
     const handleCancel = () => {
@@ -192,7 +202,7 @@ function AddNewCategory() {
                 >
                     Add New Category
                 </h2>
-            ) : (
+            ) : !errorMsg ? (
                 <form onSubmit={handleSubmit}>
                     <label>
                         {" "}
@@ -202,6 +212,8 @@ function AddNewCategory() {
                     <button>Add Category</button>
                     <button onClick={handleCancel}>Cancel</button>
                 </form>
+            ) : (
+                { errorMsg }
             )}
         </div>
     );
