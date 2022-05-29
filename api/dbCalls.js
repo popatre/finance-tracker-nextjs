@@ -12,6 +12,7 @@ import {
     writeBatch,
     updateDoc,
     getDoc,
+    setDoc,
 } from "firebase/firestore";
 import { db } from "../firebase/firebase";
 
@@ -21,6 +22,8 @@ export const signInGoogle = async () => {
 };
 
 export const getCategories = async (user, year) => {
+    if (user == null) return [];
+
     const collectionRef = `username/${user?.email}/${year}`;
 
     const querySnapshot = await getDocs(collection(db, collectionRef));
@@ -96,4 +99,16 @@ export const getSpendsInDb = async (user, year, spend) => {
     } else {
         return Promise.reject("No such document");
     }
+};
+
+export const addNewCategory = async (category, user, year) => {
+    const collectionRef = `username/${user?.email}/${year}`;
+
+    await setDoc(doc(db, collectionRef, `${category}`), {});
+};
+
+export const deleteCategory = async (category, user, year) => {
+    const docRef = `username/${user.email}/${year}`;
+
+    deleteDoc(doc(db, docRef, `${category}`));
 };

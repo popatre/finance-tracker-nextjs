@@ -4,12 +4,19 @@ import TotalBar from "../../components/TotalBar";
 import Link from "next/link";
 import AuthCheck from "../../components/AuthCheck";
 import DropDown from "../../components/DropDown";
-import { getCategories, updateIncome } from "../../api/dbCalls";
+import {
+    addNewCategory,
+    deleteCategory,
+    getCategories,
+    updateIncome,
+} from "../../api/dbCalls";
 import { useState, useEffect, useContext } from "react";
 import { findTotal } from "../../helpers/findTotal";
 import { UserContext } from "../../contexts/UserContext";
 import LoadingIcon from "../../components/Loading";
 import Error404 from "../../components/error404";
+import { FaRegTrashAlt } from "react-icons/fa";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Home({ setMonth, month }) {
     const [spends, setSpends] = useState([]);
@@ -89,6 +96,8 @@ export default function Home({ setMonth, month }) {
                     <SpendTopicContainer
                         spends={spends}
                         topicTotal={topicTotal}
+                        user={user}
+                        setSpends={setSpends}
                     />
                 )}
             </AuthCheck>
@@ -96,30 +105,63 @@ export default function Home({ setMonth, month }) {
     );
 }
 
-function SpendTopicContainer({ spends, topicTotal }) {
+function SpendTopicContainer({ spends, topicTotal, user, setSpends }) {
+    const router = useRouter();
+    const { year } = router.query;
     return (
         <main>
-            <TopicDisplay spends={spends} topicTotal={topicTotal} />
+            {spends.map((item) => {
+                return (
+                    <TopicDisplay
+                        key={item}
+                        item={item}
+                        topicTotal={topicTotal}
+                        year={year}
+                        user={user}
+                        setSpends={setSpends}
+                    />
+                );
+            })}
+            <AddNewCategory user={user} year={year} />
         </main>
     );
 }
 
-function TopicDisplay({ spends, topicTotal }) {
-    const router = useRouter();
-    const { year } = router.query;
+function TopicDisplay({ item, topicTotal, year, user, setSpends }) {
+    const handleDelete = async (cat) => {
+        console.log("hello");
 
-    return spends.map((item) => {
-        return (
+        await deleteCategory(cat, user, year);
+        toast.success("Deleted");
+        setSpends((prevSpends) => {
+            return prevSpends.filter((item) => {
+                console.log(item);
+                return item !== cat;
+            });
+        });
+    };
+
+    const defaults = ["food", "misc", "direct-debits"];
+    return (
+        <div className={`${styles.row} ${styles.card}`}>
             <Link key={item} href={`${year}/category/${item}`}>
-                <div className={`${styles.row} ${styles.card}`}>
+                <div className={`${styles.row__inside} `}>
                     <h2 className={styles.col}>{item}</h2>
                     <p className={styles.col}>
                         Spent this month: £{topicTotal[item]}
                     </p>
                 </div>
             </Link>
-        );
-    });
+            {!defaults.includes(item) ? (
+                <button
+                    className={styles["delete-btn"]}
+                    onClick={() => handleDelete(item)}
+                >
+                    <FaRegTrashAlt />
+                </button>
+            ) : null}
+        </div>
+    );
 }
 
 function IncomeSetter({ user, year, setIncomeUpdated }) {
@@ -160,6 +202,63 @@ function IncomeSetter({ user, year, setIncomeUpdated }) {
                 />
                 <button>Submit</button>
             </form>
+        </div>
+    );
+}
+
+function AddNewCategory({ user, year }) {
+    const router = useRouter();
+
+    const [isClicked, setIsClicked] = useState(false);
+    const [input, setInput] = useState("");
+    const [errorMsg, setErrorMsg] = useState("");
+    const [isDisabled, setIsDisabled] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            await addNewCategory(input, user, year);
+            router.push(`${year}/category/${input}`);
+        } catch (error) {
+            setErrorMsg("Something went wrong. Please refresh and try again");
+        }
+    };
+
+    const handleCancel = () => {
+        setIsClicked(false);
+        setInput("");
+    };
+
+    return (
+        <div
+            className={
+                isClicked
+                    ? `${styles.row} ${styles.card__addForm}`
+                    : `${styles.row} ${styles.card__addNew}`
+            }
+        >
+            {!isClicked ? (
+                <h2
+                    onClick={() => setIsClicked(true)}
+                    className={styles.col__addNew}
+                >
+                    Add New Category
+                </h2>
+            ) : !errorMsg ? (
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        {" "}
+                        Category name:
+                        <input onChange={(e) => setInput(e.target.value)} />
+                    </label>
+                    <button disabled={isDisabled}>
+                        {!isDisabled ? "Create" : "Processing..."}
+                    </button>
+                    <button onClick={handleCancel}>Cancel</button>
+                </form>
+            ) : (
+                { errorMsg }
+            )}
         </div>
     );
 }
