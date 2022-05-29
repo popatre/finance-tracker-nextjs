@@ -37,6 +37,12 @@ export default function Home({ setMonth, month }) {
         "april",
         "may",
         "june",
+        "july",
+        "august",
+        "september",
+        "october",
+        "november",
+        "december",
     ];
 
     const router = useRouter();
