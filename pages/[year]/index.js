@@ -43,11 +43,6 @@ export default function Home({ setMonth, month }) {
     const { year } = router.query;
 
     useEffect(() => {
-        if (monthGreenList.includes(year)) {
-        }
-    }, [year]);
-
-    useEffect(() => {
         setIsLoading(true);
         setNonRoute(false);
 
@@ -98,6 +93,7 @@ export default function Home({ setMonth, month }) {
                         topicTotal={topicTotal}
                         user={user}
                         setSpends={setSpends}
+                        setTopicTotals={setTopicTotals}
                     />
                 )}
             </AuthCheck>
@@ -105,7 +101,13 @@ export default function Home({ setMonth, month }) {
     );
 }
 
-function SpendTopicContainer({ spends, topicTotal, user, setSpends }) {
+function SpendTopicContainer({
+    spends,
+    topicTotal,
+    user,
+    setSpends,
+    setTopicTotals,
+}) {
     const router = useRouter();
     const { year } = router.query;
     return (
@@ -119,6 +121,7 @@ function SpendTopicContainer({ spends, topicTotal, user, setSpends }) {
                         year={year}
                         user={user}
                         setSpends={setSpends}
+                        setTopicTotals={setTopicTotals}
                     />
                 );
             })}
@@ -127,17 +130,26 @@ function SpendTopicContainer({ spends, topicTotal, user, setSpends }) {
     );
 }
 
-function TopicDisplay({ item, topicTotal, year, user, setSpends }) {
+function TopicDisplay({
+    item,
+    topicTotal,
+    year,
+    user,
+    setSpends,
+    setTopicTotals,
+}) {
     const handleDelete = async (cat) => {
-        console.log("hello");
-
         await deleteCategory(cat, user, year);
         toast.success("Deleted");
         setSpends((prevSpends) => {
             return prevSpends.filter((item) => {
-                console.log(item);
                 return item !== cat;
             });
+        });
+        setTopicTotals((prevTotal) => {
+            const copyObj = { ...prevTotal };
+            delete copyObj[cat];
+            return copyObj;
         });
     };
 
