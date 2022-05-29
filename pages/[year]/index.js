@@ -16,6 +16,7 @@ import { UserContext } from "../../contexts/UserContext";
 import LoadingIcon from "../../components/Loading";
 import Error404 from "../../components/error404";
 import { FaRegTrashAlt } from "react-icons/fa";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function Home({ setMonth, month }) {
     const [spends, setSpends] = useState([]);
@@ -96,6 +97,7 @@ export default function Home({ setMonth, month }) {
                         spends={spends}
                         topicTotal={topicTotal}
                         user={user}
+                        setSpends={setSpends}
                     />
                 )}
             </AuthCheck>
@@ -103,7 +105,7 @@ export default function Home({ setMonth, month }) {
     );
 }
 
-function SpendTopicContainer({ spends, topicTotal, user }) {
+function SpendTopicContainer({ spends, topicTotal, user, setSpends }) {
     const router = useRouter();
     const { year } = router.query;
     return (
@@ -116,6 +118,7 @@ function SpendTopicContainer({ spends, topicTotal, user }) {
                         topicTotal={topicTotal}
                         year={year}
                         user={user}
+                        setSpends={setSpends}
                     />
                 );
             })}
@@ -124,11 +127,18 @@ function SpendTopicContainer({ spends, topicTotal, user }) {
     );
 }
 
-function TopicDisplay({ item, topicTotal, year, user }) {
-    const handleDelete = (cat) => {
+function TopicDisplay({ item, topicTotal, year, user, setSpends }) {
+    const handleDelete = async (cat) => {
         console.log("hello");
 
-        deleteCategory(cat, user, year);
+        await deleteCategory(cat, user, year);
+        toast.success("Deleted");
+        setSpends((prevSpends) => {
+            return prevSpends.filter((item) => {
+                console.log(item);
+                return item !== cat;
+            });
+        });
     };
 
     const defaults = ["food", "misc", "direct-debits"];

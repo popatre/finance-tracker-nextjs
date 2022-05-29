@@ -110,5 +110,5 @@ export const addNewCategory = async (category, user, year) => {
 export const deleteCategory = async (category, user, year) => {
     const docRef = `username/${user.email}/${year}`;
 
-    await deleteDoc(doc(db, docRef, `${category}`));
+    deleteDoc(doc(db, docRef, `${category}`));
 };
