@@ -47,6 +47,81 @@
     line-height: 1.5;
 }
 
+.card__addNew {
+    margin: 1.4em 0;
+    padding: 0.7rem;
+    color: inherit;
+    text-decoration: none;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+    background-color: rgb(217, 214, 214);
+    box-shadow: 5px 10px 10px #2c2b2b;
+}
+
+.card__addNew:hover,
+.card__addNew:focus,
+.card__addNew:active {
+    color: #0070f3;
+    border-color: #0070f3;
+    background-color: #bfd8f4;
+    cursor: pointer;
+}
+
+.card__addForm {
+    margin: 1.4em 0;
+    padding: 1.8rem;
+    color: white;
+    text-shadow: 0px 1px 3px #050505;
+    text-decoration: none;
+    border: 1px solid #eaeaea;
+    border-radius: 10px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+    background-color: rgb(217, 214, 214);
+    box-shadow: 5px 10px 10px #2c2b2b;
+}
+
+.card__addForm form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card__addForm input {
+    margin-inline: 0.6em;
+    margin-top: 0.5em;
+}
+
+.card__addForm button {
+    cursor: pointer;
+    background-color: var(--yellow-color);
+    padding: 0.3em 0.9em;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 5px 10px 10px #2c2b2b;
+    text-transform: capitalize;
+    font-weight: bold;
+    margin-inline: 0.8em;
+    margin-top: 2em;
+}
+
+.card__addForm button:hover {
+    cursor: pointer;
+    transform: scale(1.06);
+}
+
+.card__addForm button:last-child {
+    cursor: pointer;
+    background-color: rgb(244, 43, 43);
+    padding: 0.3em 0.9em;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 5px 10px 10px #2c2b2b;
+    text-transform: capitalize;
+    font-weight: bold;
+    margin-inline: 0.3em;
+}
+
 .row {
     margin-inline: auto;
     display: flex;
@@ -149,6 +224,42 @@ p.errorMsg {
     }
     .card p {
         font-size: 1.125rem;
+    }
+    .card__addForm input {
+        margin-inline: 0.6em;
+    }
+
+    .card__addForm button {
+        cursor: pointer;
+        background-color: var(--yellow-color);
+        padding: 0.3em 0.9em;
+        border-radius: 20px;
+        color: white;
+        box-shadow: 5px 10px 10px #2c2b2b;
+        text-transform: capitalize;
+        font-weight: bold;
+        margin-inline: 0.8em;
+        margin-top: 0;
+    }
+
+    .card__addForm button:hover {
+        cursor: pointer;
+        transform: scale(1.06);
+    }
+
+    .card__addForm button:last-child {
+        cursor: pointer;
+        background-color: rgb(244, 43, 43);
+        padding: 0.3em 0.9em;
+        border-radius: 20px;
+        color: white;
+        box-shadow: 5px 10px 10px #2c2b2b;
+        text-transform: capitalize;
+        font-weight: bold;
+        margin-inline: 0.3em;
+    }
+    .card__addForm form {
+        display: block;
     }
 }
 

@@ -194,7 +194,13 @@ function AddNewCategory({ user, year }) {
     };
 
     return (
-        <div className={`${styles.row} ${styles.card}`}>
+        <div
+            className={
+                isClicked
+                    ? `${styles.row} ${styles.card__addForm}`
+                    : `${styles.row} ${styles.card__addNew}`
+            }
+        >
             {!isClicked ? (
                 <h2
                     onClick={() => setIsClicked(true)}
@@ -206,10 +212,10 @@ function AddNewCategory({ user, year }) {
                 <form onSubmit={handleSubmit}>
                     <label>
                         {" "}
-                        Category name
+                        Category name:
                         <input onChange={(e) => setInput(e.target.value)} />
                     </label>
-                    <button>Add Category</button>
+                    <button>Create</button>
                     <button onClick={handleCancel}>Cancel</button>
                 </form>
             ) : (
