@@ -49,7 +49,7 @@
 
 .card__addNew {
     margin: 1.4em 0;
-    padding: 0.7rem;
+    padding: 0.6rem;
     color: inherit;
     text-decoration: none;
     border: 1px solid #eaeaea;
@@ -129,6 +129,14 @@
     align-items: center;
     justify-content: space-around;
     border: 2px solid var(--yellow-color);
+}
+
+.row__inside {
+    margin-inline: auto;
+    display: flex;
+    width: 90%;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .col {
@@ -213,6 +221,20 @@ p.errorMsg {
 
 .title {
     text-transform: capitalize;
+}
+
+.delete-btn {
+    background-color: rgb(238, 85, 85);
+    color: white;
+    padding: 0.8em 1em;
+    border-radius: 20px;
+    z-index: 1;
+}
+
+.delete-btn:hover {
+    cursor: pointer;
+    background-color: rgb(235, 25, 25);
+    z-index: 1;
 }
 
 @media (min-width: 768px) {

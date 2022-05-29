@@ -4,12 +4,18 @@ import TotalBar from "../../components/TotalBar";
 import Link from "next/link";
 import AuthCheck from "../../components/AuthCheck";
 import DropDown from "../../components/DropDown";
-import { addNewCategory, getCategories, updateIncome } from "../../api/dbCalls";
+import {
+    addNewCategory,
+    deleteCategory,
+    getCategories,
+    updateIncome,
+} from "../../api/dbCalls";
 import { useState, useEffect, useContext } from "react";
 import { findTotal } from "../../helpers/findTotal";
 import { UserContext } from "../../contexts/UserContext";
 import LoadingIcon from "../../components/Loading";
 import Error404 from "../../components/error404";
+import { FaRegTrashAlt } from "react-icons/fa";
 
 export default function Home({ setMonth, month }) {
     const [spends, setSpends] = useState([]);
@@ -105,9 +111,11 @@ function SpendTopicContainer({ spends, topicTotal, user }) {
             {spends.map((item) => {
                 return (
                     <TopicDisplay
+                        key={item}
                         item={item}
                         topicTotal={topicTotal}
                         year={year}
+                        user={user}
                     />
                 );
             })}
@@ -116,16 +124,33 @@ function SpendTopicContainer({ spends, topicTotal, user }) {
     );
 }
 
-function TopicDisplay({ item, topicTotal, year }) {
+function TopicDisplay({ item, topicTotal, year, user }) {
+    const handleDelete = (cat) => {
+        console.log("hello");
+
+        deleteCategory(cat, user, year);
+    };
+
+    const defaults = ["food", "misc", "direct-debits"];
     return (
-        <Link key={item} href={`${year}/category/${item}`}>
-            <div className={`${styles.row} ${styles.card}`}>
-                <h2 className={styles.col}>{item}</h2>
-                <p className={styles.col}>
-                    Spent this month: £{topicTotal[item]}
-                </p>
-            </div>
-        </Link>
+        <div className={`${styles.row} ${styles.card}`}>
+            <Link key={item} href={`${year}/category/${item}`}>
+                <div className={`${styles.row__inside} `}>
+                    <h2 className={styles.col}>{item}</h2>
+                    <p className={styles.col}>
+                        Spent this month: £{topicTotal[item]}
+                    </p>
+                </div>
+            </Link>
+            {!defaults.includes(item) ? (
+                <button
+                    className={styles["delete-btn"]}
+                    onClick={() => handleDelete(item)}
+                >
+                    <FaRegTrashAlt />
+                </button>
+            ) : null}
+        </div>
     );
 }
 
@@ -177,6 +202,7 @@ function AddNewCategory({ user, year }) {
     const [isClicked, setIsClicked] = useState(false);
     const [input, setInput] = useState("");
     const [errorMsg, setErrorMsg] = useState("");
+    const [isDisabled, setIsDisabled] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -215,7 +241,9 @@ function AddNewCategory({ user, year }) {
                         Category name:
                         <input onChange={(e) => setInput(e.target.value)} />
                     </label>
-                    <button>Create</button>
+                    <button disabled={isDisabled}>
+                        {!isDisabled ? "Create" : "Processing..."}
+                    </button>
                     <button onClick={handleCancel}>Cancel</button>
                 </form>
             ) : (
