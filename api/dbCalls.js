@@ -90,7 +90,6 @@ export const getCurrentIncome = async (user, year) => {
 
 export const getSpendsInDb = async (user, year, spend) => {
     const collectionRef = `username/${user?.email}/${year}`;
-
     const docRef = doc(db, collectionRef, `${spend}`);
     const docSnap = await getDoc(docRef);
 

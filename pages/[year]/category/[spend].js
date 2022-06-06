@@ -45,6 +45,7 @@ export default function DisplayExpense() {
                 setPastSpend(result);
             })
             .catch((err) => {
+                console.log(err);
                 setIsError(true);
             });
     }, [spend, user, year]);
@@ -56,7 +57,14 @@ export default function DisplayExpense() {
         return total.toFixed(2);
     };
 
-    if (isError) return <Error404 code="404" message="Page Not Found" />;
+    if (isError)
+        return (
+            <main className={styles.container}>
+                <AuthCheck>
+                    <Error404 code="404" message="Page Not Found" />;
+                </AuthCheck>
+            </main>
+        );
 
     return (
         <main className={styles.container}>

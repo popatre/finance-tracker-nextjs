@@ -12,6 +12,7 @@ export default function NavBar() {
     const handleSignOut = () => {
         signOut(auth)
             .then(() => {
+                window.location.reload();
                 // Sign-out successful.
             })
             .catch((error) => {

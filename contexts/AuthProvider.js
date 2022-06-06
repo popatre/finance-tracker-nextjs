@@ -4,15 +4,14 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebase";
 
 export default function UserContextProvider({ children }) {
-    const [user, setUser] = useState(() => {
-        const currUser = auth.currentUser;
-        return currUser;
-    });
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         onAuthStateChanged(auth, (firebaseUser) => {
             if (firebaseUser) {
                 setUser(firebaseUser);
+            } else {
+                setUser(null);
             }
         });
     }, []);
