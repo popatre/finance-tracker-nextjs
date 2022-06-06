@@ -159,9 +159,7 @@ function TopicDisplay({
             <Link key={item} href={`${year}/category/${item}`}>
                 <div className={`${styles.row__inside} `}>
                     <h2 className={styles.col}>{item}</h2>
-                    <p className={styles.col}>
-                        Spent this month: £{topicTotal[item]}
-                    </p>
+                    <p className={styles.col}>£{topicTotal[item]}</p>
                 </div>
             </Link>
             {!defaults.includes(item) ? (

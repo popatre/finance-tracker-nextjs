@@ -8,7 +8,7 @@ import { UserContext } from "../contexts/UserContext";
 
 export default function NavBar() {
     const user = useContext(UserContext);
-    console.log(user?.email, "<-----");
+
     const handleSignOut = () => {
         signOut(auth)
             .then(() => {
