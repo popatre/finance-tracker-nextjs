@@ -70,3 +70,18 @@ textarea {
     padding: 0.3em;
     border-radius: 10px;
 }
+
+footer {
+    position: absolute;
+    color: white;
+    text-align: center;
+    width: 100%;
+    bottom: 0;
+    background-color: rgba(255, 200, 2, 0.43);
+    height: 7%;
+    font-size: 0.7rem;
+}
+
+footer > a {
+    text-decoration: underline;
+}
