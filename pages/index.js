@@ -56,8 +56,10 @@ export default function Home({ setMonth, month }) {
                 </div>
             </div>
             <footer>
-                <p>Created by Jonathan McGuire</p>
-                <a href="https://jonmcg.co.uk">Website</a>
+                <p>
+                    <a href="https://jonmcg.co.uk">Jonathan McGuire</a> 2022
+                    &copy;
+                </p>
             </footer>
         </section>
     );

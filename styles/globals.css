@@ -82,6 +82,6 @@ footer {
     font-size: 0.7rem;
 }
 
-footer > a {
+footer p > a {
     text-decoration: underline;
 }
