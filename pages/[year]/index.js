@@ -168,6 +168,7 @@ function TopicDisplay({
                     <p className={styles.col}>£{topicTotal[item]}</p>
                 </div>
             </Link>
+
             {!defaults.includes(item) ? (
                 <button
                     className={styles["delete-btn"]}
