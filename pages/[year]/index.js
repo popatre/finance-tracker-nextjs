@@ -51,28 +51,31 @@ export default function Home({ setMonth, month }) {
     useEffect(() => {
         setIsLoading(true);
         setNonRoute(false);
-
+        let topics = {};
         if (monthGreenList.includes(year)) {
             getCategories(user, year)
-                .then((topics) => {
+                .then((resTopics) => {
+                    topics = resTopics;
                     setSpends(topics);
+
+                    const totals = topics.map((topic) => {
+                        return findTotal(topic, year, user?.email);
+                    });
+
+                    return Promise.all(totals);
+                })
+                .then((totals) => {
                     const reset = {
                         food: 0,
                         misc: 0,
                         "direct-debits": 0,
                     };
-                    let count = 0;
-                    topics.forEach((topic) => {
-                        findTotal(topic, year, user?.email).then((res) => {
-                            reset[topic] = res;
-                            count++;
-                            if (count === topics.length) {
-                                setIsLoading(false);
-                                setTopicTotals((prevState) => {
-                                    return reset;
-                                });
-                            }
-                        });
+                    topics.forEach((topic, index) => {
+                        reset[topic] = totals[index];
+                    });
+                    setTopicTotals((prevState) => {
+                        setIsLoading(false);
+                        return reset;
                     });
                 })
                 .catch((err) => console.log(err));
