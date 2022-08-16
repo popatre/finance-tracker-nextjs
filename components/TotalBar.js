@@ -6,6 +6,7 @@ import styles from "../styles/TotalBar.module.css";
 
 export default function TotalBar({ total, user, year, incomeUpdated }) {
     const [income, setIncome] = useState(1000);
+    console.log(total, "****");
     useEffect(() => {
         getCurrentIncome(user, year).then((result) => {
             setIncome(result?.income);
@@ -41,9 +42,7 @@ export default function TotalBar({ total, user, year, incomeUpdated }) {
                 value={percentage}
                 text={`${displayMessage}`}
             />
-            <h2 className={styles.totalDisplay}>
-                Total spent:£{totalValues.toFixed(2)}
-            </h2>
+            <h2 className={styles.totalDisplay}>Total spent:£{totalValues}</h2>
         </div>
     );
 }

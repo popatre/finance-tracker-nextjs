@@ -56,12 +56,22 @@ export default function Home({ setMonth, month }) {
             getCategories(user, year)
                 .then((topics) => {
                     setSpends(topics);
-                    setIsLoading(false);
+                    const reset = {
+                        food: 0,
+                        misc: 0,
+                        "direct-debits": 0,
+                    };
+                    let count = 0;
                     topics.forEach((topic) => {
                         findTotal(topic, year, user?.email).then((res) => {
-                            setTopicTotals((prevState) => {
-                                return { ...prevState, [topic]: res };
-                            });
+                            reset[topic] = res;
+                            count++;
+                            if (count === topics.length) {
+                                setIsLoading(false);
+                                setTopicTotals((prevState) => {
+                                    return reset;
+                                });
+                            }
                         });
                     });
                 })
