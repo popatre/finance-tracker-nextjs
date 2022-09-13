@@ -42,7 +42,9 @@ export default function TotalBar({ total, user, year, incomeUpdated }) {
                 value={percentage}
                 text={`${displayMessage}`}
             />
-            <h2 className={styles.totalDisplay}>Total spent:£{totalValues}</h2>
+            <h2 className={styles.totalDisplay}>
+                Total spent:£{totalValues.toFixed(2)}
+            </h2>
         </div>
     );
 }
