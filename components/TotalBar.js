@@ -34,7 +34,7 @@ export default function TotalBar({ total, user, year, incomeUpdated }) {
                     pathTransitionDuration: 2.9,
 
                     // Colors
-                    // pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+                    pathColor: `rgba(64, 166, 98, 0.8)`,
                     textColor: "rgba(380, 200, 100, 10.939)",
                     trailColor: "#d6d6d6",
                     // backgroundColor: "white",
