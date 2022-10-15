@@ -86,12 +86,27 @@
     padding: 0.5em;
 }
 
+.btnBox {
+    display: flex;
+    justify-content: center;
+}
+
 .btnSignIn {
+    display: flex;
+
+    align-items: center;
     padding: 2em 2em;
     border-radius: 10px;
     border: 2px black solid;
     font-size: 1rem;
     margin-top: 3em;
+    border-color: var(--yellow-color);
+    background-color: var(--yellow-color);
+    color: white;
+    font-weight: 700;
+}
+.btnIcon {
+    margin-right: 1em;
 }
 
 .btnSignIn:hover {

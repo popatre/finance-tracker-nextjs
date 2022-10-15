@@ -31,13 +31,14 @@ export default function Home({ setMonth, month }) {
                 <div className={styles.container}>
                     <h1 className={styles.title}>Finance Tracker</h1>
                     {!user ? (
-                        <div>
+                        <div className={styles.btnBox}>
                             <button
                                 className={styles.btnSignIn}
                                 onClick={handleSignIn}
                             >
-                                <IconContext.Provider value={{ size: "1.2em" }}>
-                                    <FcGoogle /> Sign in with Google
+                                <IconContext.Provider value={{ size: "1.8em" }}>
+                                    <FcGoogle className={styles.btnIcon} /> Sign
+                                    in with Google
                                 </IconContext.Provider>
                             </button>
                         </div>
