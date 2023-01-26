@@ -58,7 +58,7 @@ export default function Home({ setMonth, month }) {
             </div>
             <footer>
                 <p>
-                    <a href="https://jonmcg.co.uk">Jonathan McGuire</a> 2022
+                    <a href="https://jonmcg.co.uk">Jonathan McGuire</a> 2023
                     &copy;
                 </p>
             </footer>
