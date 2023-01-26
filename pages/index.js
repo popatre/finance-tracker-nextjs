@@ -44,7 +44,7 @@ export default function Home({ setMonth, month }) {
                         </div>
                     ) : (
                         <div>
-                            <DropDown setMonth={setMonth} month={month} />
+                            <DropDown setMonth={setMonth} />
                             <p className={styles.welcomeMsg}>
                                 Hello {user.displayName}!
                             </p>
