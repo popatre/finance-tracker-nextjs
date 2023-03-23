@@ -25,7 +25,7 @@ import Error404 from "../../../components/error404";
 
 export default function DisplayExpense() {
     const router = useRouter();
-    const { spend, year } = router.query;
+    const { spend, month } = router.query;
     const [pastSpend, setPastSpend] = useState([]);
     const user = useContext(UserContext);
     const [isLoading, setIsLoading] = useState(true);
@@ -34,10 +34,10 @@ export default function DisplayExpense() {
     useEffect(() => {
         setIsLoading(true);
         setIsError(false);
-        getSpendsInDb(user, year, spend)
+        getSpendsInDb(user, month, spend)
             .then(() => {
                 setIsError(false);
-                return getSpend(user, year, spend);
+                return getSpend(user, month, spend);
             })
             .then((result) => {
                 setIsLoading(false);
@@ -48,7 +48,7 @@ export default function DisplayExpense() {
                 console.log(err);
                 setIsError(true);
             });
-    }, [spend, user, year]);
+    }, [spend, user, month]);
 
     const totalSpend = () => {
         const total = pastSpend.reduce((acc, curr) => {
@@ -77,14 +77,14 @@ export default function DisplayExpense() {
                     <>
                         <ExpenseAdder
                             setPastSpend={setPastSpend}
-                            year={year}
+                            month={month}
                             spend={spend}
                             user={user}
                         />
 
                         <SingleExpenseDisplay
                             pastSpend={pastSpend}
-                            year={year}
+                            month={month}
                             spend={spend}
                             setPastSpend={setPastSpend}
                         />
@@ -95,7 +95,7 @@ export default function DisplayExpense() {
     );
 }
 
-function ExpenseAdder({ setPastSpend, year, spend, user }) {
+function ExpenseAdder({ setPastSpend, month, spend, user }) {
     const [input, setInput] = useState("");
     const [cost, setCost] = useState("");
 
@@ -104,7 +104,7 @@ function ExpenseAdder({ setPastSpend, year, spend, user }) {
         const date = serverTimestamp();
         const uid = uuidv4();
 
-        setSpendInDatabase(input, cost, date, uid, year, spend, user.email)
+        setSpendInDatabase(input, cost, date, uid, month, spend, user.email)
             .then(() => {
                 setPastSpend((prevValue) => {
                     const parsedDate = new Date().getTime() / 1000;
@@ -159,12 +159,12 @@ function ExpenseAdder({ setPastSpend, year, spend, user }) {
     );
 }
 
-function SingleExpenseDisplay({ pastSpend, year, spend, setPastSpend }) {
+function SingleExpenseDisplay({ pastSpend, month, spend, setPastSpend }) {
     const user = useContext(UserContext);
     const [errorMsg, setErrorMsg] = useState("");
 
     const handleDelete = async (documentToDelete) => {
-        const docRef = `username/${user.email}/${year}/${spend}/spend`;
+        const docRef = `username/${user.email}/${month}/${spend}/spend`;
         const collectionRef = collection(db, docRef);
 
         const dbQuery = query(

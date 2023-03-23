@@ -18,7 +18,7 @@ import Error404 from "../../components/error404";
 import { FaRegTrashAlt } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
 
-export default function Home({ setMonth, month }) {
+export default function Home({ setMonth }) {
     const [spends, setSpends] = useState([]);
     const [topicTotal, setTopicTotals] = useState({
         food: 0,
@@ -46,20 +46,20 @@ export default function Home({ setMonth, month }) {
     ];
 
     const router = useRouter();
-    const { year } = router.query;
+    const { month } = router.query;
 
     useEffect(() => {
         setIsLoading(true);
         setNonRoute(false);
         let topics = {};
-        if (monthGreenList.includes(year)) {
-            getCategories(user, year)
+        if (monthGreenList.includes(month)) {
+            getCategories(user, month)
                 .then((resTopics) => {
                     topics = resTopics;
                     setSpends(topics);
 
                     const totals = topics.map((topic) => {
-                        return findTotal(topic, year, user?.email);
+                        return findTotal(topic, month, user?.email);
                     });
 
                     return Promise.all(totals);
@@ -82,7 +82,7 @@ export default function Home({ setMonth, month }) {
         } else {
             setNonRoute(true);
         }
-    }, [year, user]);
+    }, [month, user]);
 
     if (nonRoute) {
         return <Error404 code="404" message="Page Not Found" />;
@@ -90,18 +90,18 @@ export default function Home({ setMonth, month }) {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>Outgoings: {year}</h1>
+            <h1 className={styles.title}>Outgoings: {month}</h1>
             <AuthCheck>
                 <DropDown month={month} setMonth={setMonth} />
                 <IncomeSetter
                     user={user}
-                    year={year}
+                    month={month}
                     setIncomeUpdated={setIncomeUpdated}
                 />
                 <TotalBar
                     total={topicTotal}
                     user={user}
-                    year={year}
+                    month={month}
                     incomeUpdated={incomeUpdated}
                 />
                 {isLoading ? (
@@ -128,7 +128,7 @@ function SpendTopicContainer({
     setTopicTotals,
 }) {
     const router = useRouter();
-    const { year } = router.query;
+    const { month } = router.query;
     return (
         <main>
             {spends.map((item) => {
@@ -137,14 +137,14 @@ function SpendTopicContainer({
                         key={item}
                         item={item}
                         topicTotal={topicTotal}
-                        year={year}
+                        month={month}
                         user={user}
                         setSpends={setSpends}
                         setTopicTotals={setTopicTotals}
                     />
                 );
             })}
-            <AddNewCategory user={user} year={year} />
+            <AddNewCategory user={user} month={month} />
         </main>
     );
 }
@@ -152,13 +152,13 @@ function SpendTopicContainer({
 function TopicDisplay({
     item,
     topicTotal,
-    year,
+    month,
     user,
     setSpends,
     setTopicTotals,
 }) {
     const handleDelete = async (cat) => {
-        await deleteCategory(cat, user, year);
+        await deleteCategory(cat, user, month);
         toast.success("Deleted");
         setSpends((prevSpends) => {
             return prevSpends.filter((item) => {
@@ -175,7 +175,7 @@ function TopicDisplay({
     const defaults = ["food", "misc", "direct-debits"];
     return (
         <div className={`${styles.row} ${styles.card}`}>
-            <Link key={item} href={`${year}/category/${item}`}>
+            <Link key={item} href={`${month}/category/${item}`}>
                 <div className={`${styles.row__inside} `}>
                     <h2 className={styles.col}>{item}</h2>
                     <p className={styles.col}>£{topicTotal[item]}</p>
@@ -194,14 +194,14 @@ function TopicDisplay({
     );
 }
 
-function IncomeSetter({ user, year, setIncomeUpdated }) {
+function IncomeSetter({ user, month, setIncomeUpdated }) {
     const [input, setInput] = useState("");
     const [isIncome, setIsIncome] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await updateIncome(user, year, input);
+            await updateIncome(user, month, input);
             setIsIncome(false);
             setIncomeUpdated((prev) => !prev);
         } catch (error) {
@@ -236,7 +236,7 @@ function IncomeSetter({ user, year, setIncomeUpdated }) {
     );
 }
 
-function AddNewCategory({ user, year }) {
+function AddNewCategory({ user, month }) {
     const router = useRouter();
 
     const [isClicked, setIsClicked] = useState(false);
@@ -247,8 +247,8 @@ function AddNewCategory({ user, year }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await addNewCategory(input, user, year);
-            router.push(`${year}/category/${input}`);
+            await addNewCategory(input, user, month);
+            router.push(`${month}/category/${input}`);
         } catch (error) {
             setErrorMsg("Something went wrong. Please refresh and try again");
         }
