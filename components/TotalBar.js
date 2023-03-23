@@ -6,7 +6,6 @@ import styles from "../styles/TotalBar.module.css";
 
 export default function TotalBar({ total, user, month, incomeUpdated }) {
     const [income, setIncome] = useState(1000);
-    console.log(total, "****");
     useEffect(() => {
         getCurrentIncome(user, month).then((result) => {
             setIncome(result?.income);

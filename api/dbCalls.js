@@ -24,7 +24,7 @@ export const signInGoogle = async () => {
 export const getCategories = async (user, month) => {
     if (user == null) return [];
 
-    const collectionRef = `username/${user?.email}/${month}`;
+    const collectionRef = `username/${user?.email}/year/2023/${month}`;
 
     const querySnapshot = await getDocs(collection(db, collectionRef));
 
@@ -37,7 +37,7 @@ export const getCategories = async (user, month) => {
     if (result.length === 0) {
         const batch = writeBatch(db);
 
-        const collectionRef1 = `username/${user?.email}/${month}`;
+        const collectionRef1 = `username/${user?.email}/year/2023/${month}`;
 
         const docRef = doc(db, collectionRef1, "food");
         const docRef1 = doc(db, collectionRef1, "misc");
@@ -56,7 +56,7 @@ export const getCategories = async (user, month) => {
 };
 
 export const getSpend = async (user, month, spend) => {
-    const collectionPath = `username/${user?.email}/${month}/${spend}/spend`;
+    const collectionPath = `username/${user?.email}/year/2023/${month}/${spend}/spend`;
     const collectionRef = collection(db, collectionPath);
     const dbQuery = query(collectionRef, orderBy("date", "desc"));
     const querySnapshot = await getDocs(dbQuery);
@@ -68,7 +68,7 @@ export const getSpend = async (user, month, spend) => {
 };
 
 export const updateIncome = async (user, month, income) => {
-    const collectionRef = `username/${user?.email}/${month}`;
+    const collectionRef = `username/${user?.email}/year/2023/${month}`;
     const docRef = doc(db, collectionRef, "income");
 
     await updateDoc(docRef, { income: income });
@@ -76,7 +76,7 @@ export const updateIncome = async (user, month, income) => {
 };
 
 export const getCurrentIncome = async (user, month) => {
-    const collectionRef = `username/${user?.email}/${month}`;
+    const collectionRef = `username/${user?.email}/year/2023/${month}`;
     const docRef = doc(db, collectionRef, "income");
     const docSnap = await getDoc(docRef);
 
@@ -89,7 +89,7 @@ export const getCurrentIncome = async (user, month) => {
 };
 
 export const getSpendsInDb = async (user, month, spend) => {
-    const collectionRef = `username/${user?.email}/${month}`;
+    const collectionRef = `username/${user?.email}/year/2023/${month}`;
     const docRef = doc(db, collectionRef, `${spend}`);
     const docSnap = await getDoc(docRef);
 
@@ -101,13 +101,13 @@ export const getSpendsInDb = async (user, month, spend) => {
 };
 
 export const addNewCategory = async (category, user, month) => {
-    const collectionRef = `username/${user?.email}/${month}`;
+    const collectionRef = `username/${user?.email}/year/2023/${month}`;
 
     await setDoc(doc(db, collectionRef, `${category}`), {});
 };
 
 export const deleteCategory = async (category, user, month) => {
-    const docRef = `username/${user.email}/${month}`;
+    const docRef = `username/${user.email}/year/2023/${month}`;
 
     deleteDoc(doc(db, docRef, `${category}`));
 };
