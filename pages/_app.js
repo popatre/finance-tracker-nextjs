@@ -9,6 +9,7 @@ import { onAuthStateChanged } from "firebase/auth";
 function MyApp({ Component, pageProps }) {
     const [user, setUser] = useState(null);
     const [month, setMonth] = useState("");
+    const [year, setYear] = useState("");
 
     useEffect(() => {
         onAuthStateChanged(auth, (firebaseUser) => {
@@ -19,7 +20,14 @@ function MyApp({ Component, pageProps }) {
     return (
         <AuthContextProvider>
             {user ? <NavBar /> : null}
-            <Component setMonth={setMonth} month={month} {...pageProps} />;
+            <Component
+                setMonth={setMonth}
+                month={month}
+                setYear={setYear}
+                year={year}
+                {...pageProps}
+            />
+            ;
             <Toaster />
         </AuthContextProvider>
     );
