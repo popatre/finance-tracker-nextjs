@@ -88,6 +88,7 @@ export default function DisplayExpense() {
                             month={month}
                             spend={spend}
                             setPastSpend={setPastSpend}
+                            year={year}
                         />
                     </>
                 )}
@@ -169,12 +170,12 @@ function ExpenseAdder({ setPastSpend, month, spend, user, year }) {
     );
 }
 
-function SingleExpenseDisplay({ pastSpend, month, spend, setPastSpend }) {
+function SingleExpenseDisplay({ pastSpend, month, spend, setPastSpend, year }) {
     const user = useContext(UserContext);
     const [errorMsg, setErrorMsg] = useState("");
 
     const handleDelete = async (documentToDelete) => {
-        const docRef = `username/${user.email}/${month}/${spend}/spend`;
+        const docRef = `username/${user.email}/year/${year}/${month}/${spend}/spend`;
         const collectionRef = collection(db, docRef);
 
         const dbQuery = query(
