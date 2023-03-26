@@ -8,10 +8,11 @@ const setSpendInDatabase = async (
     uid,
     month,
     spend,
-    user
+    user,
+    year
 ) => {
     try {
-        const collectionRef = `username/${user}/year/2023/${month}/${spend}/spend`;
+        const collectionRef = `username/${user}/year/${year}/${month}/${spend}/spend`;
         const docRef = await addDoc(collection(db, collectionRef), {
             description,
             spend: cost,

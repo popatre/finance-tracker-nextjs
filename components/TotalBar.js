@@ -4,10 +4,10 @@ import "react-circular-progressbar/dist/styles.css";
 import { getCurrentIncome } from "../api/dbCalls";
 import styles from "../styles/TotalBar.module.css";
 
-export default function TotalBar({ total, user, month, incomeUpdated }) {
+export default function TotalBar({ total, user, month, incomeUpdated, year }) {
     const [income, setIncome] = useState(1000);
     useEffect(() => {
-        getCurrentIncome(user, month).then((result) => {
+        getCurrentIncome(user, month, year).then((result) => {
             setIncome(result?.income);
         });
     }, [incomeUpdated, user, month]);

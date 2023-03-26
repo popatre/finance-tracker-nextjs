@@ -46,20 +46,20 @@ export default function Home({ setMonth }) {
     ];
 
     const router = useRouter();
-    const { month } = router.query;
+    const { month, year } = router.query;
 
     useEffect(() => {
         setIsLoading(true);
         setNonRoute(false);
         let topics = {};
         if (monthGreenList.includes(month)) {
-            getCategories(user, month)
+            getCategories(user, month, year)
                 .then((resTopics) => {
                     topics = resTopics;
                     setSpends(topics);
 
                     const totals = topics.map((topic) => {
-                        return findTotal(topic, month, user?.email);
+                        return findTotal(topic, month, user?.email, year);
                     });
 
                     return Promise.all(totals);
@@ -82,7 +82,7 @@ export default function Home({ setMonth }) {
         } else {
             setNonRoute(true);
         }
-    }, [month, user]);
+    }, [month, user, year]);
 
     if (nonRoute) {
         return <Error404 code="404" message="Page Not Found" />;
@@ -97,12 +97,14 @@ export default function Home({ setMonth }) {
                     user={user}
                     month={month}
                     setIncomeUpdated={setIncomeUpdated}
+                    year={year}
                 />
                 <TotalBar
                     total={topicTotal}
                     user={user}
                     month={month}
                     incomeUpdated={incomeUpdated}
+                    year={year}
                 />
                 {isLoading ? (
                     <LoadingIcon />
@@ -128,7 +130,7 @@ function SpendTopicContainer({
     setTopicTotals,
 }) {
     const router = useRouter();
-    const { month } = router.query;
+    const { month, year } = router.query;
     return (
         <main>
             {spends.map((item) => {
@@ -141,10 +143,11 @@ function SpendTopicContainer({
                         user={user}
                         setSpends={setSpends}
                         setTopicTotals={setTopicTotals}
+                        year={year}
                     />
                 );
             })}
-            <AddNewCategory user={user} month={month} />
+            <AddNewCategory user={user} month={month} year={year} />
         </main>
     );
 }
@@ -156,9 +159,10 @@ function TopicDisplay({
     user,
     setSpends,
     setTopicTotals,
+    year,
 }) {
     const handleDelete = async (cat) => {
-        await deleteCategory(cat, user, month);
+        await deleteCategory(cat, user, month, year);
         toast.success("Deleted");
         setSpends((prevSpends) => {
             return prevSpends.filter((item) => {
@@ -175,7 +179,7 @@ function TopicDisplay({
     const defaults = ["food", "misc", "direct-debits"];
     return (
         <div className={`${styles.row} ${styles.card}`}>
-            <Link key={item} href={`${month}/category/${item}`}>
+            <Link key={item} href={`/${year}/${month}/category/${item}`}>
                 <div className={`${styles.row__inside} `}>
                     <h2 className={styles.col}>{item}</h2>
                     <p className={styles.col}>£{topicTotal[item]}</p>
@@ -194,14 +198,14 @@ function TopicDisplay({
     );
 }
 
-function IncomeSetter({ user, month, setIncomeUpdated }) {
+function IncomeSetter({ user, month, setIncomeUpdated, year }) {
     const [input, setInput] = useState("");
     const [isIncome, setIsIncome] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await updateIncome(user, month, input);
+            await updateIncome(user, month, input, year);
             setIsIncome(false);
             setIncomeUpdated((prev) => !prev);
         } catch (error) {
@@ -236,7 +240,7 @@ function IncomeSetter({ user, month, setIncomeUpdated }) {
     );
 }
 
-function AddNewCategory({ user, month }) {
+function AddNewCategory({ user, month, year }) {
     const router = useRouter();
 
     const [isClicked, setIsClicked] = useState(false);
@@ -247,8 +251,8 @@ function AddNewCategory({ user, month }) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await addNewCategory(input, user, month);
-            router.push(`${month}/category/${input}`);
+            await addNewCategory(input, user, month, year);
+            router.push(`/${year}/${month}/category/${input}`);
         } catch (error) {
             setErrorMsg("Something went wrong. Please refresh and try again");
         }
