@@ -1,20 +1,20 @@
 import { useRouter } from "next/router";
-import styles from "../../styles/Year.module.css";
-import TotalBar from "../../components/TotalBar";
+import styles from "../../../styles/Year.module.css";
+import TotalBar from "../../../components/TotalBar";
 import Link from "next/link";
-import AuthCheck from "../../components/AuthCheck";
-import DropDown from "../../components/DropDown";
+import AuthCheck from "../../../components/AuthCheck";
+import DropDown from "../../../components/DropDown";
 import {
     addNewCategory,
     deleteCategory,
     getCategories,
     updateIncome,
-} from "../../api/dbCalls";
+} from "../../../api/dbCalls";
 import { useState, useEffect, useContext } from "react";
-import { findTotal } from "../../helpers/findTotal";
-import { UserContext } from "../../contexts/UserContext";
-import LoadingIcon from "../../components/Loading";
-import Error404 from "../../components/error404";
+import { findTotal } from "../../../helpers/findTotal";
+import { UserContext } from "../../../contexts/UserContext";
+import LoadingIcon from "../../../components/Loading";
+import Error404 from "../../../components/error404";
 import { FaRegTrashAlt } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
 

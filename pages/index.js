@@ -45,7 +45,9 @@ export default function Home({ setMonth, month, setYear, year }) {
                     ) : (
                         <div>
                             <YearDropDown setYear={setYear} year={year} />
-                            {year && <DropDown setMonth={setMonth} />}
+                            {year && (
+                                <DropDown setMonth={setMonth} year={year} />
+                            )}
                             <p className={styles.welcomeMsg}>
                                 Hello {user.displayName}!
                             </p>

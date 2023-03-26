@@ -1,13 +1,15 @@
 import { useRouter } from "next/router";
 
-export default function DropDown({ setMonth }) {
+export default function DropDown({ setMonth, year }) {
     const router = useRouter();
-    const { month } = router.query;
+    const { month, year: routerYear } = router.query;
+
+    let selectedYear = routerYear || year;
 
     const handleChange = (e) => {
         const { value } = e.target;
         setMonth(value);
-        router.push(`${value}`);
+        router.push(`/${selectedYear}/${value}`);
     };
     return (
         <form className="dropdown__form">
