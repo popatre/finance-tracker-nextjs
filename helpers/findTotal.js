@@ -2,8 +2,8 @@ import { collection, getDocs } from "firebase/firestore";
 
 import { db } from "../firebase/firebase";
 
-const findTotal = async (spend, year, user) => {
-    const collectionRef = `username/${user}/${year}/${spend}/spend`;
+const findTotal = async (spend, month, user, year) => {
+    const collectionRef = `username/${user}/year/${year}/${month}/${spend}/spend`;
 
     const querySnapshot = await getDocs(collection(db, collectionRef));
 

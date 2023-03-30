@@ -21,10 +21,10 @@ export const signInGoogle = async () => {
     return result.user;
 };
 
-export const getCategories = async (user, year) => {
+export const getCategories = async (user, month, year) => {
     if (user == null) return [];
 
-    const collectionRef = `username/${user?.email}/${year}`;
+    const collectionRef = `username/${user?.email}/year/${year}/${month}`;
 
     const querySnapshot = await getDocs(collection(db, collectionRef));
 
@@ -37,7 +37,7 @@ export const getCategories = async (user, year) => {
     if (result.length === 0) {
         const batch = writeBatch(db);
 
-        const collectionRef1 = `username/${user?.email}/${year}`;
+        const collectionRef1 = `username/${user?.email}/year/${year}/${month}`;
 
         const docRef = doc(db, collectionRef1, "food");
         const docRef1 = doc(db, collectionRef1, "misc");
@@ -55,8 +55,8 @@ export const getCategories = async (user, year) => {
     return result;
 };
 
-export const getSpend = async (user, year, spend) => {
-    const collectionPath = `username/${user?.email}/${year}/${spend}/spend`;
+export const getSpend = async (user, month, spend, year) => {
+    const collectionPath = `username/${user?.email}/year/${year}/${month}/${spend}/spend`;
     const collectionRef = collection(db, collectionPath);
     const dbQuery = query(collectionRef, orderBy("date", "desc"));
     const querySnapshot = await getDocs(dbQuery);
@@ -67,16 +67,16 @@ export const getSpend = async (user, year, spend) => {
     return result;
 };
 
-export const updateIncome = async (user, year, income) => {
-    const collectionRef = `username/${user?.email}/${year}`;
+export const updateIncome = async (user, month, income, year) => {
+    const collectionRef = `username/${user?.email}/year/${year}/${month}`;
     const docRef = doc(db, collectionRef, "income");
 
     await updateDoc(docRef, { income: income });
     console.log("updated income");
 };
 
-export const getCurrentIncome = async (user, year) => {
-    const collectionRef = `username/${user?.email}/${year}`;
+export const getCurrentIncome = async (user, month, year) => {
+    const collectionRef = `username/${user?.email}/year/${year}/${month}`;
     const docRef = doc(db, collectionRef, "income");
     const docSnap = await getDoc(docRef);
 
@@ -88,8 +88,8 @@ export const getCurrentIncome = async (user, year) => {
     }
 };
 
-export const getSpendsInDb = async (user, year, spend) => {
-    const collectionRef = `username/${user?.email}/${year}`;
+export const getSpendsInDb = async (user, month, spend, year) => {
+    const collectionRef = `username/${user?.email}/year/${year}/${month}`;
     const docRef = doc(db, collectionRef, `${spend}`);
     const docSnap = await getDoc(docRef);
 
@@ -100,14 +100,14 @@ export const getSpendsInDb = async (user, year, spend) => {
     }
 };
 
-export const addNewCategory = async (category, user, year) => {
-    const collectionRef = `username/${user?.email}/${year}`;
+export const addNewCategory = async (category, user, month, year) => {
+    const collectionRef = `username/${user?.email}/year/${year}/${month}`;
 
     await setDoc(doc(db, collectionRef, `${category}`), {});
 };
 
-export const deleteCategory = async (category, user, year) => {
-    const docRef = `username/${user.email}/${year}`;
+export const deleteCategory = async (category, user, month, year) => {
+    const docRef = `username/${user.email}/year/${year}/${month}`;
 
     deleteDoc(doc(db, docRef, `${category}`));
 };

@@ -7,14 +7,14 @@ import { UserContext } from "../contexts/UserContext";
 import { FcGoogle } from "react-icons/fc";
 import { IconContext } from "react-icons";
 import Metatags from "../components/Metatags";
+import YearDropDown from "../components/YearDropDown";
 
-export default function Home({ setMonth, month }) {
+export default function Home({ setMonth, month, setYear, year }) {
     const user = useContext(UserContext);
 
     const handleSignIn = async () => {
         try {
             const result = await signInGoogle();
-            console.log(result);
         } catch (error) {
             const errorMessage = error.message;
         }
@@ -44,13 +44,16 @@ export default function Home({ setMonth, month }) {
                         </div>
                     ) : (
                         <div>
-                            <DropDown setMonth={setMonth} />
+                            <YearDropDown setYear={setYear} year={year} />
+                            {year && (
+                                <DropDown setMonth={setMonth} year={year} />
+                            )}
                             <p className={styles.welcomeMsg}>
                                 Hello {user.displayName}!
                             </p>
                             <p className={styles.welcomeMsg}>
                                 {" "}
-                                Choose a month to begin
+                                Choose a year to begin
                             </p>
                         </div>
                     )}
