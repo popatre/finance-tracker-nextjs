@@ -44,17 +44,19 @@ export default function Home({ setMonth, month, setYear, year }) {
                         </div>
                     ) : (
                         <div>
+                            <p className={styles.welcomeMsg}>
+                                Hello {user.displayName}!
+                            </p>
+                            {!year && (
+                                <p className={styles.welcomeMsg}>
+                                    {" "}
+                                    Choose a year to begin
+                                </p>
+                            )}
                             <YearDropDown setYear={setYear} year={year} />
                             {year && (
                                 <DropDown setMonth={setMonth} year={year} />
                             )}
-                            <p className={styles.welcomeMsg}>
-                                Hello {user.displayName}!
-                            </p>
-                            <p className={styles.welcomeMsg}>
-                                {" "}
-                                Choose a year to begin
-                            </p>
                         </div>
                     )}
                 </div>
