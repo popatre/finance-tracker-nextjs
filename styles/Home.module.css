@@ -114,6 +114,11 @@
     cursor: pointer;
 }
 
+.errorContainer {
+    display: flex;
+    justify-content: center;
+}
+
 p.errorMsg {
     font-size: 0.8rem;
     color: red;

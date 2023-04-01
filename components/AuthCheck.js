@@ -23,11 +23,13 @@ export default function AuthCheck({ children }) {
             <p className={styles.signInWarning}>
                 You must be signed in to view pages
             </p>
-            <button className={styles.btnSignIn} onClick={handleSignIn}>
-                <IconContext.Provider value={{ size: "1.2em" }}>
-                    <FcGoogle /> Sign in with Google
-                </IconContext.Provider>
-            </button>
+            <div className={styles.errorContainer}>
+                <button className={styles.btnSignIn} onClick={handleSignIn}>
+                    <IconContext.Provider value={{ size: "1.2em" }}>
+                        <FcGoogle /> Sign in with Google
+                    </IconContext.Provider>
+                </button>
+            </div>
         </div>
     ) : (
         children
