@@ -28,6 +28,8 @@ export default function Home({ setMonth }) {
     const [isLoading, setIsLoading] = useState(true);
     const [incomeUpdated, setIncomeUpdated] = useState(false);
     const [nonRoute, setNonRoute] = useState(false);
+    const [isError, setIsError] = useState(false);
+
     const user = useContext(UserContext);
 
     const monthGreenList = [
@@ -78,7 +80,7 @@ export default function Home({ setMonth }) {
                         return reset;
                     });
                 })
-                .catch((err) => console.log(err));
+                .catch((err) => setIsError(true));
         } else {
             setNonRoute(true);
         }
@@ -86,6 +88,10 @@ export default function Home({ setMonth }) {
 
     if (nonRoute) {
         return <Error404 code="404" message="Page Not Found" />;
+    }
+
+    if (isError) {
+        return <Error404 code="Oh No" message="Something went wrong" />;
     }
 
     return (
