@@ -8,20 +8,23 @@
 }
 
 .btnLogOut {
-    padding: 0.8em;
+    padding: 0.5em;
     font-weight: bold;
     border-radius: 4px;
     border: 1px var(--yellow-color) solid;
     box-shadow: 2px 1px 2px black;
-    margin-right: 1em;
+    /* margin-right: 1em; */
+    grid-column: 11 / span 2;
+    margin-right: 5px;
 }
 
 .btnLogOut:hover {
     opacity: 0.8;
     cursor: pointer;
+    align-items: center;
 }
 .nav {
-    display: flex;
+    /* display: flex; */
     background: rgba(255, 200, 2, 0.43);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -34,8 +37,6 @@
     animation-name: top-fade;
     animation-duration: 2s;
     /* opacity: 0.7; */
-    justify-content: flex-end;
-    align-items: center;
 }
 
 .nav__email {
@@ -45,16 +46,48 @@
     text-shadow: black 1px 1px 4px;
 }
 .nav__contents {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    align-content: center;
+    height: 50px;
+}
+
+.back {
+    grid-column: span 4;
+    align-self: center;
+}
+
+.back:hover {
+    opacity: 0.8;
+    cursor: pointer;
     align-items: center;
 }
 
-@media (min-width: 1200px) {
+.nav__email {
+    grid-column: span 4;
+    align-self: center;
+    justify-self: center;
+}
+
+@media (min-width: 1100px) {
     .container {
-        display: flex;
-        justify-content: flex-end;
-        width: 85%;
+        display: grid;
+        /* justify-content: flex-end; */
+        width: 100%;
         max-width: 1200px;
         margin-inline: auto;
+    }
+
+    .btnLogOut {
+        grid-column: 11 / span 1;
+    }
+
+    .nav__email {
+        grid-column: 9 / span 2;
+    }
+
+    .back {
+        grid-column: 3 / span 1;
+        align-self: center;
     }
 }
