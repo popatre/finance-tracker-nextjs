@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }) {
                 year={year}
                 {...pageProps}
             />
-            ;
+
             <Toaster />
         </AuthContextProvider>
     );
