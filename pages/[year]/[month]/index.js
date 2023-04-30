@@ -90,7 +90,9 @@ export default function Home({ setMonth }) {
 
     return (
         <div className={styles.container}>
-            <h1 className={styles.title}>Outgoings: {month}</h1>
+            <h1 className={styles.title}>
+                Outgoings: {month} {year}
+            </h1>
             <AuthCheck>
                 <DropDown month={month} setMonth={setMonth} />
                 <IncomeSetter
