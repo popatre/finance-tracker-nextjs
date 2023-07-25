@@ -16,6 +16,8 @@ export default function TotalBar({ total, user, month, incomeUpdated, year }) {
 
     const percentage = +((totalValues / +income) * 100).toFixed(1);
 
+    const remainingIncome = (income - totalValues.toFixed(2)).toFixed(2);
+
     let displayMessage = "";
     if (percentage === Infinity || isNaN(percentage))
         displayMessage = "No income";
@@ -43,6 +45,9 @@ export default function TotalBar({ total, user, month, incomeUpdated, year }) {
             />
             <h2 className={styles.totalDisplay}>
                 Total spent:£{totalValues.toFixed(2)}
+            </h2>
+            <h2 className={styles.totalDisplay}>
+                Remaining income:£{remainingIncome}
             </h2>
         </div>
     );

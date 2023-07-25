@@ -56,7 +56,6 @@ export default function DisplayExpense() {
         }, 0);
         return total.toFixed(2);
     };
-
     if (isError)
         return (
             <main className={styles.container}>
