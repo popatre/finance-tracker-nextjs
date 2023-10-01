@@ -1,0 +1,11 @@
+.btn__gold {
+    cursor: pointer;
+    background-color: var(--yellow-color);
+    padding: 0.5em 1em;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 5px 10px 10px #2c2b2b;
+    margin-top: 2em;
+    text-transform: capitalize;
+    font-weight: bold;
+}

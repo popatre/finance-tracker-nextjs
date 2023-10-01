@@ -3,9 +3,11 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 import { getCurrentIncome } from "../api/dbCalls";
 import styles from "../styles/TotalBar.module.css";
+import Button from "./atoms/Button/Button";
 
 export default function TotalBar({ total, user, month, incomeUpdated, year }) {
     const [income, setIncome] = useState(1000);
+    const [showRemainingIncome, setShowRemainingIncome] = useState(false);
 
     useEffect(() => {
         getCurrentIncome(user, month, year).then((result) => {
@@ -47,9 +49,24 @@ export default function TotalBar({ total, user, month, incomeUpdated, year }) {
             <h2 className={styles.totalDisplay}>
                 Total spent:£{totalValues.toFixed(2)}
             </h2>
-            <h2 className={styles.totalDisplay}>
-                Remaining income:£{remainingIncome || 0}
-            </h2>
+            <div className={styles.btn__spacer}>
+                <Button
+                    label={
+                        !showRemainingIncome
+                            ? "Show remaining"
+                            : "Hide reminaing"
+                    }
+                    onClick={() =>
+                        setShowRemainingIncome((prevState) => !prevState)
+                    }
+                />
+            </div>
+
+            {showRemainingIncome && (
+                <h2 className={styles.totalDisplay}>
+                    Remaining income: £{remainingIncome || 0}
+                </h2>
+            )}
         </div>
     );
 }

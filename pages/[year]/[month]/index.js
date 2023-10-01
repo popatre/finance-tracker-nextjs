@@ -17,6 +17,7 @@ import LoadingIcon from "../../../components/Loading";
 import Error404 from "../../../components/error404";
 import { FaRegTrashAlt } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
+import Button from "../../../components/atoms/Button/Button";
 
 export default function Home({ setMonth }) {
     const [spends, setSpends] = useState([]);
@@ -222,15 +223,10 @@ function IncomeSetter({ user, month, setIncomeUpdated, year }) {
     };
 
     return !isIncome ? (
-        <div>
-            <button
-                className={styles.btn__income}
-                onClick={() => setIsIncome(true)}
-            >
-                {" "}
-                Change monthly income
-            </button>
-        </div>
+        <Button
+            onClick={() => setIsIncome(true)}
+            label="Change monthly income"
+        />
     ) : (
         <div className={styles.input__cont}>
             <form className={styles.income__form} onSubmit={handleSubmit}>
