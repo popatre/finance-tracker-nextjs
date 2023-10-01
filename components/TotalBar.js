@@ -6,6 +6,7 @@ import styles from "../styles/TotalBar.module.css";
 
 export default function TotalBar({ total, user, month, incomeUpdated, year }) {
     const [income, setIncome] = useState(1000);
+
     useEffect(() => {
         getCurrentIncome(user, month, year).then((result) => {
             setIncome(result?.income);
@@ -47,7 +48,7 @@ export default function TotalBar({ total, user, month, incomeUpdated, year }) {
                 Total spent:£{totalValues.toFixed(2)}
             </h2>
             <h2 className={styles.totalDisplay}>
-                Remaining income:£{remainingIncome}
+                Remaining income:£{remainingIncome || 0}
             </h2>
         </div>
     );
