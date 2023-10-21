@@ -20,11 +20,12 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-initializeFirestore(app, {
+const db = initializeFirestore(app, {
     ignoreUndefinedProperties: true,
+    experimentalForceLongPolling: true,
 });
 
-const db = getFirestore(app);
+//const db = getFirestore(app);
 const auth = getAuth();
 
 const provider = new GoogleAuthProvider();

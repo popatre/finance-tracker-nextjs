@@ -77,11 +77,15 @@ export default function Home({ setMonth }) {
                         reset[topic] = totals[index];
                     });
                     setTopicTotals((prevState) => {
-                        setIsLoading(false);
                         return reset;
                     });
                 })
-                .catch((err) => setIsError(true));
+                .catch((err) => {
+                    setIsError(true);
+                })
+                .finally(() => {
+                    setIsLoading(false);
+                });
         } else {
             setNonRoute(true);
         }
