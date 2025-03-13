@@ -47,11 +47,11 @@ export default function AuthCheck({ children }) {
                     <p>Hello {user?.displayName}</p>
                     <p>Thanks for stopping by!</p>
                     <p style={{ marginBlock: "1em" }}>
-                        I've had to limit the users due to a random spike in
+                        I have had to limit the users due to a random spike in
                         people viewing this. (its on a free tier)
                     </p>
                     <p>
-                        If you're really in need of a finance tracker, send me
+                        If you are really in need of a finance tracker, send me
                         an email
                     </p>
                 </div>
