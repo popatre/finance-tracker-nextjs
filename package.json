@@ -1,29 +1,29 @@
 {
-  "name": "money-tracker",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "@emotion/react": "^11.9.0",
-    "@emotion/styled": "^11.8.1",
-    "@mui/material": "^5.7.0",
-    "firebase": "^9.7.0",
-    "lodash": "^4.17.21",
-    "next": "12.1.5",
-    "react": "18.1.0",
-    "react-circular-progressbar": "^2.0.4",
-    "react-dom": "18.1.0",
-    "react-hot-toast": "^2.2.0",
-    "react-icons": "^4.8.1-snapshot.1",
-    "uuid": "^8.3.2"
-  },
-  "devDependencies": {
-    "eslint": "8.14.0",
-    "eslint-config-next": "12.1.5"
-  }
+    "name": "money-tracker",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@emotion/react": "^11.9.0",
+        "@emotion/styled": "^11.8.1",
+        "@mui/material": "^5.7.0",
+        "firebase": "^9.7.0",
+        "lodash": "^4.17.21",
+        "next": "12.1.5",
+        "react": "18.1.0",
+        "react-circular-progressbar": "^2.2.0",
+        "react-dom": "18.1.0",
+        "react-hot-toast": "^2.2.0",
+        "react-icons": "^4.8.1-snapshot.1",
+        "uuid": "^8.3.2"
+    },
+    "devDependencies": {
+        "eslint": "8.14.0",
+        "eslint-config-next": "12.1.5"
+    }
 }
